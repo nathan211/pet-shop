@@ -22,18 +22,17 @@
                 data: obj,
                 success: function (data) {
                     if (data != "CannotFindCustomer") {
-                        $('.full-name').val(data.FullName);
-                        console.log(data.Gender);
+                        $('#full-name_' + customerId).val(data.FullName);
                         if (data.Gender == true) {
                             $('#male_' + customerId).prop('checked', true);
                         }
                         else {
                             $('#female_' + customerId).prop('checked', true);
                         }
-                        $('.username').val(data.Username);
-                        $('.address').val(data.Address);
-                        $('.phone').val(data.Phone);
-                        $('.email').val(data.Email);
+                        $('#username_' + customerId).val(data.Username);
+                        $('#address_' + customerId).val(data.Address);
+                        $('#phone_' + customerId).val(data.Phone);
+                        $('#email_' + customerId).val(data.Email);
                         $('#myModal_' + customerId).modal();
                     }
                 },
@@ -44,13 +43,16 @@
         };
 
         function UpdateCustomer(item) {
+
             var customerId = $(item).attr('itemid');
-            var fullName = $('.full-name').val();
-            var gender = $("input[name='gender']:checked").val();
-            var username = $('.username').val();
-            var address = $('.address').val();
-            var phone = $('.phone').val();
-            var email = $('.email').val();
+            var fullName = $('#full-name_' + customerId).val();
+            var gender = $("input[name='gender']:checked", "#myForm_" + customerId).val();
+            var username = $('#username_' + customerId).val();
+            var address = $('#address_' + customerId).val();
+            var phone = $('#phone_' + customerId).val();
+            var email = $('#email_' + customerId).val();
+
+            console.log(gender);
 
             var obj = {
                 id: customerId,
@@ -152,11 +154,11 @@
                                 <div class="modal-body">
                                     <div class="form-group row mx-2">
                                         <label class="col-sm-3">Họ và tên</label>
-                                        <input type="text" class="form-control col-sm-9 full-name" aria-describedby="emailHelp" name="Username">
+                                        <input type="text" class="form-control col-sm-9" id="full-name_@item.Id" aria-describedby="emailHelp" name="Username">
                                     </div>
                                     <div class="row my-2 mx-2">
                                         <label class="col-sm-3">Giới tính </label>
-                                        <div class="col-sm-9">
+                                        <form class="col-sm-9" id="myForm_@item.Id">
                                             <div class="form-check-inline">
                                                 <label class="form-check-label">
                                                     <input type="radio" class="form-check-input" id="male_@item.Id" name="gender" value="true">Nam
@@ -167,25 +169,25 @@
                                                     <input type="radio" class="form-check-input" id="female_@item.Id" name="gender" value="false">Nữ
                                                 </label>
                                             </div>
-                                        </div>
+                                        </form>
                                     </div>
 
                                     <div class="form-group row mx-2">
                                         <label class="col-sm-3">Tài khoản</label>
-                                        <input type="text" class="form-control col-sm-9 username">
+                                        <input type="text" class="form-control col-sm-9" id="username_@item.Id">
                                     </div>
 
                                     <div class="form-group row mx-2">
                                         <label class="col-sm-3">Địa chỉ</label>
-                                        <textarea type="text" class="form-control col-sm-9 address"></textarea>
+                                        <textarea type="text" class="form-control col-sm-9" id="address_@item.Id"></textarea>
                                     </div>
                                     <div class="form-group row mx-2">
                                         <label class="col-sm-3">Phone</label>
-                                        <input type="text" class="form-control col-sm-9 phone">
+                                        <input type="text" class="form-control col-sm-9" id="phone_@item.Id">
                                     </div>
                                     <div class="form-group row mx-2">
                                         <label class="col-sm-3">Email</label>
-                                        <input type="text" class="form-control col-sm-9 email">
+                                        <input type="text" class="form-control col-sm-9" id="email_@item.Id">
                                     </div>
                                 </div>
                                 <div class="modal-footer">
