@@ -1,5 +1,6 @@
 ﻿$(document).ready(function () {
-    CKEDITOR.replace('Description');
+    CKEDITOR.replaceAll('description');
+    
     $('#selectImage').click(function () {
         var finder = new CKFinder();
         finder.selectActionFunction = function (fileUrl) {

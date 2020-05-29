@@ -25,6 +25,51 @@ namespace PetShop.Areas.Admin.Controllers
             return View(products);
         }
 
-        
+        [HttpGet]
+        public ActionResult AddNew()
+        {
+            ViewBag.CategoryId = new SelectList(db.Categories.ToList(), "Id", "Name");
+            ViewBag.SupplierId = new SelectList(db.Suppliers.ToList(), "Id", "Name");
+            return PartialView();
+        }
+
+        [HttpPost, ValidateInput(false)]
+        public ActionResult AddNew(Product product)
+        {
+            if (ModelState.IsValid)
+            {
+                product.Status = true;
+                product.CreatedDate = DateTime.Now;
+                db.Products.InsertOnSubmit(product);
+                db.SubmitChanges();
+                return RedirectToAction("ListAllProducts");
+            }
+            return this.AddNew();
+        }
+
+        [HttpPost]
+        public JsonResult ProductInfo(long id)
+        {
+            var product = db.Products.Where(x => x.Id == id).FirstOrDefault();
+            if (product != null)
+            {
+                return Json(new
+                {
+                    Name = product.Name,
+                    Price = product.Price,
+                    Image = product.Image,
+                    Description = product.Description,
+                    Quantity = product.Quantity,
+                    CategoryId = product.CategoryId,
+                    SupplierId = product.SupplierId
+
+                }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json("CannotFindProduct", JsonRequestBehavior.AllowGet);
+            }
+        }
+
     }
 }

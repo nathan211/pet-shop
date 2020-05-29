@@ -6214,6 +6214,7 @@
     </Content>
     <Content Include="Areas\Admin\Views\Customer\ListAllCustomers.cshtml" />
     <Content Include="Areas\Admin\Views\Product\ListAllProducts.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\AddNew.cshtml" />
     <None Include="Models\PetShop.dbml.layout">
       <DependentUpon>PetShop.dbml</DependentUpon>
     </None>
