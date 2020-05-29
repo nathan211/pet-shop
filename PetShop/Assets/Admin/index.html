@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	
+	<!-- Bootstrap -->
+	<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="fontawesome/css/all.min.css">
+	<!-- Main css -->
+	<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+	
+
+	<div class="header">
+		<div class="container">
+			<div class="row bg-light rounded mt-3 text-center">
+				<div class="col-sm-12">
+					<h2>
+						Quản lý Pet Shop
+					</h2>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="content bg-light mx-4 mt-3 rounded">
+		<div class="container-fluid p-3">
+			<div class="row">
+				<div class="col-sm-12">
+
+					<!-- Nav tabs -->
+					<ul class="nav nav-tabs" role="tablist">
+						<li class="nav-item">
+							<a class="nav-link active" data-toggle="tab" href="#home">Khách hàng</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" data-toggle="tab" href="#order">Menu 1</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" data-toggle="tab" href="#menu2">Menu 2</a>
+						</li>
+					</ul>
+
+					<!-- Tab panes -->
+					<div class="tab-content">
+						<div id="home" class="container tab-pane active"><br>
+							<h3>Khách hàng</h3>
+							<!-- sorting and searching -->
+							<div class="row my-2">
+								<div class="col-sm-6">
+									<div class="sort d-inline-block">
+										<select name="sort" id="sort" class="form-control d-inline">
+											<option selected>Sắp xếp...</option>
+											<option value="username">Sắp xếp theo tên tài khoản</option>
+											<option value="created-date">Sắp xếp theo ngày tạo</option>
+										</select>
+									</div>
+
+								</div>
+								<div class="col-sm-6">
+									<form class="form-inline my-2 my-lg-0 float-right">
+										<input class="form-control mr-sm-2 search-input" type="search" placeholder="Tìm kiếm..." aria-label="Search">
+										<button class="btn btn-outline-secondary my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
+									</form>
+								</div>
+							</div>
+							<!-- end sorting -->
+							<!-- table -->
+							<table class="table">
+								<thead class="thead-dark">
+									<tr>
+										<th scope="col"></th>
+										<th scope="col">Họ và tên</th>
+										<th scope="col">Tài khoản</th>
+										<th scope="col">Địa chỉ</th>
+										<th scope="col">Phone</th>
+										<th scope="col">Email</th>
+										<th scope="col"></th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<th scope="row">1</th>
+										<td>Nguyễn Việt Phi</td>
+										<td>Fi</td>
+										<td>Hutech</td>
+										<td>06151531</td>
+										<td>fi@gmail.com</td>
+										<td>
+											<a href="#">
+												<i class="fas fa-info-circle"></i>
+											</a>
+											<a href="#">
+												<i class="fas fa-user-edit"></i>
+											</a>
+											<a href="#">
+												<i class="fas fa-trash"></i>
+											</a>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+							<!-- table -->
+						</div>
+						<div id="order" class="container tab-pane fade"><br>
+							<h3>Menu 1</h3>
+							<p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+						</div>
+						<div id="menu2" class="container tab-pane fade"><br>
+							<h3>Menu 2</h3>
+							<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+						</div>
+					</div>
+
+
+					<!-- pagination -->
+					<div class="row">
+						<div class="col-sm-12">
+							<nav aria-label="Page navigation example">
+								<ul class="pagination justify-content-center">
+									<li class="page-item disabled">
+										<a class="page-link" href="#" tabindex="-1"><</a>
+									</li>
+									<li class="page-item"><a class="page-link" href="#">1</a></li>
+									<li class="page-item"><a class="page-link" href="#">2</a></li>
+									<li class="page-item"><a class="page-link" href="#">3</a></li>
+									<li class="page-item">
+										<a class="page-link" href="#">></a>
+									</li>
+								</ul>
+							</nav>
+						</div>
+					</div>
+					<!-- end pagination -->
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	
+
+	<!-- JQuery -->
+	<script src="jquery/jquery-3.5.1.js"></script>
+	<!-- Main js -->
+	<script src="js/script.js"></script>
+	<!-- bs js -->
+	<script src="bootstrap/js/bootstrap.min.js"></script>
+	<script src="bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

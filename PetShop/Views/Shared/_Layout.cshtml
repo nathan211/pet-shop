@@ -1,0 +1,339 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>PET SHOP - Cửa Hàng Thú Cưng TP. HCM</title>
+
+    <link rel="stylesheet" href="~/Assets/Client/petshop/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/Assets/Client/petshop/css/style.css">
+    <link rel="stylesheet" href="~/Assets/Client/petshop/fontawesome/css/all.css">
+
+    <!-- google fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Chewy&family=Open+Sans&family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
+
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+</head>
+<body>
+    <div class="header">
+        <div class="container">
+            <div class="row top-info">
+
+                <div class="col-sm-3 logo my-3">
+                    <a href="/Home">
+                        <img src="~/Assets/Client/petshop/images/logopetshop.png" alt="" class="rounded-circle p-2">
+                        <span class="ml-3 font-weight-bold">
+                            PetShop.vn
+                        </span>
+                    </a>
+                </div>
+                <!-- end logo -->
+
+                <div class="col-sm-7 search mt-5 pl-4">
+                    <form class="form-inline">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Tìm kiếm...">
+                        <button class="btn btn-danger btn-search my-2 my-sm-0" type="submit">Tìm</button>
+                    </form>
+                </div>
+                <!-- end search -->
+                <!-- start contact -->
+                <div class="col-sm-2 contact-info mt-4">
+                    <div class="row">
+                        <div class="col-sm-12 media">
+                            <a href="#" class="facebook mx-2"><i class="fab fa-facebook-square"></i></a>
+                            <a href="#" class="insta mx-2"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="pinterest mx-2"><i class="fab fa-pinterest-square"></i></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 basic-info">
+                            <a href="#"><i class="fas fa-envelope"></i> info@gmail.com</a>
+                            <span><i class="fas fa-phone-alt"></i> 032151651684</span>
+                        </div>
+                    </div>
+                    <!-- end contact -->
+                </div>
+                <!-- end contact info -->
+            </div>
+            <!-- end container -->
+        </div>
+        <!-- end top info -->
+        <div class="navigation">
+            <div class="container">
+                <div class="row menu-bottom">
+                    <nav class="navbar navbar-expand-lg navbar-light p-0">
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                            <ul class="navbar-nav font-weight-bold">
+                                <li class="nav-item active mx-4">
+                                    <a class="nav-link" href="/Home"><i class="fas fa-home"></i><span class="sr-only">(current)</span></a>
+                                </li>
+                                <li class="nav-item mx-4">
+                                    <a class="nav-link" href="#">Giới thiệu</a>
+                                </li>
+                                <li class="nav-item mx-4">
+                                    <a class="nav-link" href="#">Dịch vụ</a>
+                                </li>
+                                <li class="nav-item dropdown mx-4">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Shop now
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                        <a class="dropdown-item" href="@Url.Action("ShopForDog", "Shopping")">Shop cho Chó</a>
+                                        <a class="dropdown-item" href="#">Shop cho Mèo</a>
+                                        <a class="dropdown-item" href="#">Shop cho Hamster</a>
+                                        <a class="dropdown-item" href="#">Shop cho Thỏ</a>
+                                        <a class="dropdown-item" href="#">Shop cho Bò Sát</a>
+                                    </div>
+                                </li>
+                                <li class="nav-item dropdown mx-4">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Blog
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                        <a class="dropdown-item" href="#">Sức khỏe</a>
+                                        <a class="dropdown-item" href="#">Chăm sóc</a>
+                                    </div>
+                                </li>
+                                <li class="nav-item mx-4">
+                                    <a class="nav-link" href="#">Liên hệ</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                    <!-- end nav -->
+                    <div class="shopping-cart-and-user">
+
+                        @Html.Action("CartCounter", "Cart")
+
+                        @{ var userSession = Session["UserLogin"];}
+
+                        @if (userSession != null)
+                        {
+                            <div class="dropdown user ml-3 my-2 d-inline">
+                                <button class="dropdown-toggle border-0 bg-transparent" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fas fa-user"></i>
+                                </button>
+                                <div class="dropdown-menu text-center" aria-labelledby="dropdownMenu2">
+                                    @Html.Action("ProfileName", "Customer")
+                                    <a href="@Url.Action("ProfileInfo", "Customer")" class="d-block">Thông tin</a>
+                                    <a href="@Url.Action("LogOut", "Customer")">Đăng xuất</a>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <a href="@Url.Action("Login", "Customer")" class="user ml-3 my-2 text-dark" data-toggle="modal" data-target="#modal-login">
+                                <i class="fas fa-user"></i>
+                                @Html.Action("ProfileName", "Customer")
+                            </a>
+                        }
+
+
+                        <div class="modal fade" id="modal-login" role="dialog" data-backdrop="static" data-keyboard="false">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+
+                                    @RenderPage("~/Views/Customer/LoginAndRegister.cshtml")
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- end menu bottom -->
+            </div>
+            <!-- end container -->
+        </div>
+        <!-- end navigation -->
+    </div>
+    <!-- end header -->
+
+
+    <div class="content-body py-3">
+
+        <div class="container">
+            @RenderBody()
+        </div>
+
+        <!-- cart noti -->
+        <div class="cart-noti font-weight-bold  d-none">
+            <i class="fas fa-check-circle text-info"></i>
+            <span>Đã thêm vào giỏ hàng.</span>
+        </div>
+
+    </div>
+    <!-- content body -->
+    <!-- footer -->
+    <div class="container-fluid bg-secondary text-white footer">
+        <div class="row p-5">
+            <div class="col-sm-4">
+                <h4 class="text-uppercase border-bottom">PetShop.vn</h4>
+                <div><b>Địa chỉ:</b> 920/15 P. Hiệp Phú, Quận 9, TP HCM.</div>
+                <div><b>Phone:</b> 09210491254</div>
+                <div><b>Email:</b> info@gmail.com</div>
+            </div>
+            <div class="col-sm-4">
+                <h4 class="text-uppercase border-bottom">Giới thiệu</h4>
+                <a href="#" class="text-white d-block">Về chúng tôi</a>
+                <a href="#" class="text-white">Bài viết</a>
+            </div>
+            <div class="col-sm-4">
+                <h4 class="text-uppercase border-bottom">Chính sách</h4>
+                <a href="#" class="text-white d-block">Đổi trả</a>
+                <a href="#" class="text-white">Thanh toán</a>
+            </div>
+        </div>
+        <div class="row bg-light">
+            <div class="col-sm-12 text-uppercase text-dark text-center">
+                &copy; công ty pet shop việt nam - GPKD số 1234564789
+            </div>
+        </div>
+    </div>
+
+    <!-- end footer -->
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    @*<script src="~/Assets/Client/petshop/bootstrap/js/jquery-3.3.1.slim.min.js"></script>*@
+    <script src="~/Assets/Client/petshop/bootstrap/js/popper.min.js"></script>
+    <script src="~/Assets/Client/petshop/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/Assets/Client/petshop/js/script.js"></script>
+
+    @RenderSection("masterjs", required: false)
+
+    <script>
+        function Login() {
+            var username = $('#username').val();
+            var password = $('#password').val();
+
+            var obj = {
+                username: username,
+                password: password
+            };
+
+            $.ajax({
+                url: '/Customer/Login',
+                method: 'POST',
+                data: obj,
+                success: function (data) {
+                    if (data == "UsernameIsEmpty") {
+                        $('#noti').text(data);
+                        $('#noti').removeClass('fade');
+                        $('#noti').addClass('show');
+                    }
+                    else {
+                        if (data == "PasswordIsEmpty") {
+                            $('#noti').text(data);
+                            $('#noti').removeClass('fade');
+                            $('#noti').addClass('show');
+                        }
+                        else {
+                            if (data == "IncorrectUser") {
+                                $('#noti').text(data);
+                                $('#noti').removeClass('fade');
+                                $('#noti').addClass('show');
+                            }
+                            else {
+                                $('#modal-login').modal('hide');
+                                $('#user-login').text('(' + data + ')');
+                                window.location.reload();
+                            }
+
+                        }
+                    }
+                },
+                error: function () {
+                    alert('there is some problem.');
+                }
+            });
+        };
+
+        function Register() {
+            var fullName = $('#full-name').val();
+            var gender = $('input[name="gender"]:checked').val();
+            var username = $('#username-register').val();
+            var password = $('#password-register').val();
+            var address = $('#address').val();
+            var phone = $('#phone').val();
+            var email = $('#email').val();
+
+            if (fullName == "" || fullName == undefined) {
+                alert('Bạn chưa nhập họ và tên.');
+            }
+            else {
+                if (gender == "" || gender == undefined) {
+                    alert('Bạn chưa chọn giới tính.');
+                }
+                else {
+                    if (username == "" || username == undefined) {
+                        alert('Bạn chưa nhập tên tài khoản.');
+                    }
+                    else {
+                        if (password == "" || password == undefined) {
+                            alert('Bạn chưa nhập mật khẩu.');
+                        }
+                        else {
+                            if (address == "" || address == undefined) {
+                                alert('Bạn chưa nhập địa chỉ.');
+                            }
+                            else {
+                                if (phone == "" || phone == undefined) {
+                                    alert('Bạn chưa nhập số điện thoại.');
+                                }
+                                else {
+                                    if (email == "" || email == undefined) {
+                                        alert('Bạn chưa nhập email.');
+                                    }
+                                    else {
+                                        var obj = {
+                                            FullName: fullName,
+                                            Gender: gender,
+                                            Username: username,
+                                            Password: password,
+                                            Address: address,
+                                            Phone: phone,
+                                            Email: email
+                                        };
+                                        $.ajax({
+                                            url: '/Customer/Register',
+                                            method: 'POST',
+                                            data: obj,
+                                            success: function (data) {
+                                                if (data == 'Success') {
+                                                    $('#noti-register').text('Đăng ký thành công!');
+                                                    $('#noti-register').removeClass('fade');
+                                                    $('#noti-register').addClass('show');
+                                                }
+                                            },
+                                            error: function () {
+                                                alert('Đăng ký không thành công :(')
+                                            }
+                                        });
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        };
+
+        $(document).ready(function () {
+            $('#btn-login').click(function (event) {
+                event.preventDefault();
+            });
+        });
+    </script>
+
+</body>
+</html>

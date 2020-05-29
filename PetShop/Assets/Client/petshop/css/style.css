@@ -1,0 +1,267 @@
+﻿*{
+	padding: 0;
+	margin: 0;
+}
+
+
+.header .top-info{
+	background-color: #fff;
+}
+
+.header .top-info .logo{
+	font-size: 23px;
+	font-family: 'Chewy', cursive;
+	
+}
+
+.header .top-info .logo a{
+	color: black;
+}
+
+.header .top-info .logo a:hover {
+	text-decoration: none !important;
+	color: #888888;
+}
+
+.header .top-info .logo img{
+	width: 100px;
+	background: #ff57573d;
+}
+
+.header .top-info .search .btn-search{
+	background: #ff9600;
+	border: none;
+}
+
+.header .top-info .search input{
+	border: 3px solid #ff9600;
+	width: 500px!important;
+}
+
+.header .top-info .contact-info .media{
+	font-size: 30px;
+}
+
+.header .top-info .contact-info .media .pinterest{
+	color: red;
+}
+
+.header .top-info .contact-info .media .insta{
+	color: brown;
+}
+
+.header .top-info .contact-info .basic-info a{
+	color: #101010;
+	display: block;
+}
+
+.header .menu-bottom {
+	position: relative;
+	font-family: 'Patrick Hand', cursive;
+}
+
+
+/*=======================HEADER================================*/
+
+
+.navigation {
+	background: #fab1a0;
+}
+.navigation .navbar {
+	font-size: 15px;
+	font-weight: 500;
+	text-transform: uppercase;
+}
+
+ .img-cart{
+	 width: 100px;
+ }
+
+
+ /*=======================NAVIGATION================================*/
+.heading-menu {
+	background: #009432;
+}
+
+.content-body {
+	background: #fafafa;
+	font-family: 'Patrick Hand', cursive;
+}
+
+.content-body .menus {
+	background: #fa8231;
+	font-size: 18px;
+	height: 300px;
+	overflow: auto;
+}
+
+.content-body .menu-dog {
+	background: #fa8231;
+	font-size: 18px;
+}
+
+.content-body .menu-dog ul li{
+	list-style: none;
+}
+
+.content-body .menus::-webkit-scrollbar {
+	width: 10px;
+}
+
+/* Track */
+.content-body .menus::-webkit-scrollbar-track {
+	box-shadow: inset 0 0 5px grey;
+	border-radius: 10px;
+}
+
+/* Handle */
+.content-body .menus::-webkit-scrollbar-thumb {
+	background: #b30000;
+	border-radius: 10px;
+}
+
+/* Handle on hover */
+.content-body .menus::-webkit-scrollbar-thumb:hover {
+	background: #b30000;
+}
+
+.content-body .menus .title-menu{
+background: rgb(243, 102, 100)!important;
+}
+
+ .img-menu-type{
+ 	width: 30px;
+ }
+
+ .img-banner{
+ 	width: 100%;
+ 	height: 100%;	
+ }
+
+.icons{
+	font-size: 30px;
+}
+
+.shopping-cart-and-user{
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+
+
+/*=======================PRODUCT================================*/
+
+
+.products .product{
+	position: relative;
+}
+
+
+.products .product .card-title{
+	font-size: 13px;
+}
+
+.products .product .cart-plus {
+	position: absolute;
+	bottom: 10px;
+	right: 20px;
+	font-size: 25px;
+	color: red;
+	border: none;
+}
+
+.products .product .cart-plus:active, .products .product .cart-plus.active, .products .product .cart-plus:focus {
+	outline: none !important;
+	border: none !important;
+}
+
+.products .product .cart-plus:active{
+	transform: scale(1.2);
+}
+
+
+.products .product:hover .price {
+	text-decoration: none;
+}
+
+.products .product .price {
+	position: absolute;
+	bottom: 0px;
+	left: 10px;
+}
+
+.products .product .btn-more-details{
+	font-size: 14px;
+	position: absolute;
+	top: 0;
+	left: 25%;
+	opacity: 0;
+	transition: 0.5s all;
+}
+
+.products .product:hover .btn-more-details{
+	opacity: 1;
+	top: 50%;
+}
+
+.category-title {
+	background: #e5edf5;
+	border-bottom: 1px solid #8395a7;
+	display: block;
+}
+
+.bg-title {
+	background: rgb(60, 173, 226);
+}
+
+/*=======================DETAILS================================*/
+.img-details {
+	width: 100%;
+	height: 100%;
+}
+
+
+.quantity{
+	width: 40px;
+	text-align: center;
+}
+
+
+/*=======================CART NOTI================================*/
+
+.cart-noti {
+	width: 300px;
+	height: 60px;
+	position: fixed;
+	top: 10%;
+	right: 10%;
+	background: #fff;
+	margin-left: -200px;
+	margin-top: -50px;
+	font-size: 20px;
+	padding-top: 10px;
+	padding-left: 20px;
+	border-radius: 10px;
+	border: 1px solid grey;
+}
+
+.btn-qty{
+	border: none;
+	border-radius: 5px;
+}
+
+.btn-qty:active{
+	transform: scale(1.1);
+}
+
+.btn-qty:focus {
+	outline: none !important;
+	border: none !important;
+}
+
+
+/*=======================CART NOTI================================*/
+
+.footer {
+	font-family: 'Patrick Hand', cursive;
+}
