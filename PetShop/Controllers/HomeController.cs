@@ -33,23 +33,6 @@ namespace PetShop.Controllers
             return products;
         }
 
-        public ActionResult MenuFood(int parentId = 2)
-        {
-            var categories = db.Categories.Where(x => x.ParentId == parentId).ToList();
-            return PartialView(categories);
-        }
-
-        public ActionResult MenuAccessory(int parentId = 1)
-        {
-            var categories = db.Categories.Where(x => x.ParentId == parentId).ToList();
-            return PartialView(categories);
-        }
-
-        public ActionResult MenuToy(int parentId = 3)
-        {
-            var categories = db.Categories.Where(x => x.ParentId == parentId).ToList();
-            return PartialView(categories);
-        }
 
         // changed into the top 3 menu
         public ActionResult ListByMenuSide(long id)

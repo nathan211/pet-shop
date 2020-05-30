@@ -71,5 +71,41 @@ namespace PetShop.Areas.Admin.Controllers
             }
         }
 
+        [HttpPost, ValidateInput(false)]
+        public JsonResult UpdateProduct(long id, string name, decimal price, string image, string description, int quantity, long categoryId, long supplierId)
+        {
+            var product = db.Products.Where(x => x.Id == id).FirstOrDefault();
+            if (product != null)
+            {
+                product.Name = name;
+                product.Price = price;
+                product.Image = image;
+                product.Description = description;
+                product.CreatedDate = DateTime.Now;
+                product.Quantity = quantity;
+                product.CategoryId = categoryId;
+                product.SupplierId = supplierId;
+                UpdateModel(product);
+                db.SubmitChanges();
+                return Json("Success", JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json("CannotFindProduct", JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpDelete]
+        public ActionResult Delete(long id)
+        {
+            var product = db.Products.Where(x => x.Id == id).FirstOrDefault();
+            if (product != null)
+            {
+                db.Products.DeleteOnSubmit(product);
+                db.SubmitChanges();
+                return RedirectToAction("Index");
+            }
+            return View();
+        }
     }
 }

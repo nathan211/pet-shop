@@ -28,9 +28,6 @@
                         $('#quantity_' + productId).val(data.Quantity);
                         $('#category_' + productId).val(data.CategoryId).change();
                         $('#supplier_' + productId).val(data.SupplierId).change();
-                        var ckid = $('#description_' + productId).val();
-                        //var ckValue = CKEDITOR.instances.ckid.getData();
-                        console.log(ckid);
                         $('#myModal_' + productId).modal();
                     }
                 },
@@ -40,13 +37,67 @@
             });
         };
 
+        function UpdateProduct(item) {
+            var productId = $(item).attr('itemid');
+            var name = $('#name_' + productId).val();
+            var price = $('#price_' + productId).val();
+            var image = $('#image_' + productId).val();
+            var description = $('#description_' + productId).val();
+            var quantity = $('#quantity_' + productId).val();
+            var categoryId = $('#category_' + productId).val();
+            var supplierId = $('#supplier_' + productId).val();
 
+            var obj = {
+                id: productId,
+                name: name,
+                price: price,
+                image: image,
+                description: description,
+                quantity: quantity,
+                categoryId: categoryId,
+                supplierId: supplierId
+            };
+
+            console.log(obj);
+
+            $.ajax({
+                url: '/Admin/Product/UpdateProduct',
+                method: 'POST',
+                data: obj,
+                success: function (data) {
+                    if (data == "Success") {
+                        alert('Cập nhật thành công!');
+                        $('#myModal_' + productId).modal();
+                        window.location.reload();
+                    }
+                },
+                error: function () {
+                    alert('Có lỗi xảy ra.');
+                }
+            });
+        };
 
         $(document).ready(function () {
             $('.btn-show').click(function (event) {
                 event.preventDefault();
+
             });
+
+            $('.btn-save-product').click(function (event) {
+                event.preventDefault();
+            });
+
+            $('.btn-selectImage').click(function (event) {
+                var finder = new CKFinder();
+                finder.selectActionFunction = function (fileUrl) {
+                    $('.image-path').val(fileUrl);
+                };
+                finder.popup();
+            });
+
         });
+
+
     </script>
 }
 
@@ -131,8 +182,8 @@
                                     <div class="form-group">
                                         @Html.Label("Hình Ảnh")
                                         <div class="col-md-12 p-0">
-                                            <input type="text" name="image" id="image_@item.Id" class="form-control" readonly />
-                                            <button type="button" class="btn btn-outline-dark mt-2" id="selectImage">Chọn ảnh</button>
+                                            <input type="text" name="image" id="image_@item.Id" class="form-control image-path" readonly />
+                                            <button type="button" class="btn btn-outline-dark mt-2 btn-selectImage" id="selectImage_@item.Id">Chọn ảnh</button>
                                         </div>
                                     </div>
 
@@ -166,13 +217,13 @@
 
                                 </div>
                                 <div class="modal-footer">
-                                    <a href="#" class="btn btn-primary btn-save-customer" onclick="UpdateProduct(this)" itemid="@item.Id">Lưu</a>
+                                    <a href="#" class="btn btn-primary btn-save-product" onclick="UpdateProduct(this)" itemid="@item.Id">Lưu</a>
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    @Ajax.ActionLink(" ", "Delete", "Customer", new { id = item.Id }, new AjaxOptions
+                    @Ajax.ActionLink(" ", "Delete", "Product", new { id = item.Id }, new AjaxOptions
                               {
                                   Confirm = "Bạn có chắc chắn muốn sản phẩm này?",
                                   OnComplete = "$('#row_" + item.Id + "').remove()",

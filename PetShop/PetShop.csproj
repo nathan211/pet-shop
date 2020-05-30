@@ -152,6 +152,7 @@
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
+    <Compile Include="Controllers\MenuController.cs" />
     <Compile Include="Controllers\ShoppingController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -6215,6 +6216,7 @@
     <Content Include="Areas\Admin\Views\Customer\ListAllCustomers.cshtml" />
     <Content Include="Areas\Admin\Views\Product\ListAllProducts.cshtml" />
     <Content Include="Areas\Admin\Views\Product\AddNew.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\Index.cshtml" />
     <None Include="Models\PetShop.dbml.layout">
       <DependentUpon>PetShop.dbml</DependentUpon>
     </None>
@@ -6327,10 +6329,10 @@
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Home\Details.cshtml" />
-    <Content Include="Views\Home\MenuFood.cshtml" />
+    <Content Include="Views\Menu\MenuFood.cshtml" />
     <Content Include="Views\Home\ListByMenuSide.cshtml" />
-    <Content Include="Views\Home\MenuAccessory.cshtml" />
-    <Content Include="Views\Home\MenuToy.cshtml" />
+    <Content Include="Views\Menu\MenuAccessory.cshtml" />
+    <Content Include="Views\Menu\MenuToy.cshtml" />
     <Content Include="Views\Cart\CartCounter.cshtml" />
     <Content Include="Views\Cart\Index.cshtml" />
     <Content Include="Views\Cart\CheckOut.cshtml" />
@@ -6348,7 +6350,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
-    <Folder Include="Areas\Admin\Views\Home\" />
     <Folder Include="Assets\Admin\images\" />
     <Folder Include="Uploads\" />
     <Folder Include="Views\User\" />
