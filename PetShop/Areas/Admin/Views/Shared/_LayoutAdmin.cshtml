@@ -16,7 +16,6 @@
 </head>
 <body>
 
-
     <div class="header">
         <div class="container">
             <div class="row bg-light rounded mt-3 text-center">
@@ -42,7 +41,10 @@
                             <a class="nav-link" href="@Url.Action("ListAllProducts", "Product")">Sản phẩm</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#menu2">Menu 2</a>
+                            <a class="nav-link" href="@Url.Action("ListAllOrders", "Order")">Đơn hàng</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("ListAllCategories", "Category")">Đơn hàng</a>
                         </li>
                     </ul>
 
@@ -76,15 +78,12 @@
     <!-- bs js -->
     <script src="~/Assets/Admin/bootstrap/js/bootstrap.min.js"></script>
 
-
-
     <!-- ck editor and ck finder -->
     <script src="~/Content/ckeditor/ckeditor.js"></script>
     <script src="~/Content/ckfinder/ckfinder.js"></script>
     <script src="~/Scripts/main.js"></script>
-
     @RenderSection("masterjs", required: false)
 
-
+    
 </body>
 </html>

@@ -1,4 +1,5 @@
 ﻿$(document).ready(function () {
+
     CKEDITOR.replaceAll('description');
     
     $('#selectImage').click(function () {
@@ -9,5 +10,4 @@
         finder.popup();
     });
 
-   
 });

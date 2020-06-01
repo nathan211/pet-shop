@@ -193,10 +193,11 @@ namespace PetShop.Controllers
 
             if (orderNew != null)
             {
-                List<Cart> cart = TakeCart();
-                var orderDetail = new OrderDetail();
-                foreach (var item in cart)
+                List<Cart> cartItems = TakeCart();
+                
+                foreach (var item in cartItems)
                 {
+                    var orderDetail = new OrderDetail();
                     orderDetail.OrderId = order.Id;
                     orderDetail.ProductId = item.Id;
                     orderDetail.Count = item.Count;

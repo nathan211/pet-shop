@@ -146,8 +146,10 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\CategoryController.cs" />
     <Compile Include="Areas\Admin\Controllers\CustomerController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\OrderController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductController.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -6217,6 +6219,10 @@
     <Content Include="Areas\Admin\Views\Product\ListAllProducts.cshtml" />
     <Content Include="Areas\Admin\Views\Product\AddNew.cshtml" />
     <Content Include="Areas\Admin\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Order\ListAllOrders.cshtml" />
+    <Content Include="Areas\Admin\Views\Order\ListOrderDetailsByOrderId.cshtml" />
+    <Content Include="Areas\Admin\Views\Category\ListAllCategories.cshtml" />
+    <Content Include="Areas\Admin\Views\Category\AddNew.cshtml" />
     <None Include="Models\PetShop.dbml.layout">
       <DependentUpon>PetShop.dbml</DependentUpon>
     </None>
