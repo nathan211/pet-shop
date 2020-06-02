@@ -165,6 +165,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>PetShop.dbml</DependentUpon>
     </Compile>
+    <Compile Include="Models\SendMail.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -3409,6 +3410,7 @@
     <Content Include="Assets\Client\petshop\js\script.js" />
     <Content Include="Assets\Client\petshop\shopfordog.html" />
     <Content Include="Assets\css\main.css" />
+    <Content Include="Assets\Email\SendMail.html" />
     <Content Include="Assets\fontawesome\css\all.css" />
     <Content Include="Assets\fontawesome\css\all.min.css" />
     <Content Include="Assets\fontawesome\css\brands.css" />
