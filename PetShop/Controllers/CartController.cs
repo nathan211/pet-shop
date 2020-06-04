@@ -177,6 +177,25 @@ namespace PetShop.Controllers
             return View(list);
         }
 
+        [HttpPost]
+        public JsonResult UpdateAddress(long id, string address)
+        {
+            var customer = db.Customers.Where(x => x.Id == id).FirstOrDefault();
+
+            if (customer != null)
+            {
+                customer.Address = address;
+                UpdateModel(customer);
+                db.SubmitChanges();
+                Session["UserLogin"] = customer;
+                return Json("Success", JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json("CannotFindCustomer", JsonRequestBehavior.AllowGet);
+            }
+        }
+
         public ActionResult InsertOrder()
         {
             var user = (Customer)Session["UserLogin"];

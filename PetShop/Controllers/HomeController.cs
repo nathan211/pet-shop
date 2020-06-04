@@ -13,7 +13,8 @@ namespace PetShop.Controllers
 
         public ActionResult Index()
         {
-            var products = db.Products.Take(18).ToList();
+            var products = db.Products.Where(x => x.Discount == null).Take(12).ToList();
+            ViewBag.PromotionalProducts = db.Products.Where(x => x.Discount > 0).Take(6).ToList();
             return View(products);
         }
 
@@ -32,7 +33,6 @@ namespace PetShop.Controllers
 
             return products;
         }
-
 
         // changed into the top 3 menu
         public ActionResult ListByMenuSide(long id)

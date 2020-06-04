@@ -1,5 +1,6 @@
 ﻿@{
     ViewBag.Title = "Home Page";
+    var promotionalProducts = (List<PetShop.Models.Product>)ViewBag.PromotionalProducts;
 }
 
 @using PetShop.Models
@@ -41,8 +42,52 @@
     
     }
 
-
 <div class="row p-0">
+    <div class="col-sm-12 p-0">
+        <div class="row mt-3">
+            <div class="col-sm-12 p-0">
+                <div class="category-title pt-1 text-center">
+                    <h5 class="text-uppercase pl-3">sản phẩm khuyến mãi <i class="fas fa-tags"></i></h5>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12 products">
+                <div class="row flex-wrap">
+                    @foreach (var item in promotionalProducts)
+                    {
+                        <div href="#" class="card col-sm-2 p-0 product border rounded-0">
+                            <a href="@Url.Action("Details", "Home", new { id = item.Id })" class="text-decoration-none">
+                                <img class="card-img-top" src="@Url.Content(@item.Image)" alt="Card image cap">
+                                <div class="card-body">
+                                    <h5 class="card-title">@item.Name</h5>
+                                </div>
+                            </a>
+                            <div class="mt-2 pt-1">
+
+
+                                <div class="ml-3 mb-3 text-dark font-weight-bold price">@String.Format("{0:0,0}", item.Price) ₫</div>
+                                <div class="ml-3 text-danger font-weight-bold price">@String.Format("{0:0,0}", item.PromotePrice) ₫ <div class="line"></div></div>
+                                
+                                <button class="cart-plus text-warning bg-white border-0" itemid="@item.Id" onclick="AddToCart(this)"><i class="fas fa-cart-plus"></i></button>
+                            </div>
+
+                            <a href="@Url.Action("Details", "Home", new { id = item.Id })" class="btn btn-dark btn-more-details">Xem chi tiết <i class="fas fa-info-circle"></i></a>
+                        </div>
+                    }
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 text-center">
+                        <a href="#" class="btn btn-outline-info mt-3 px-4">Xem tất cả</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row p-0 mt-4">
     <div class="col-sm-12 p-0">
         <div class="row mt-3">
             <div class="col-sm-12 p-0">
@@ -82,6 +127,9 @@
         </div>
     </div>
 </div>
+
+
+
 
 
 

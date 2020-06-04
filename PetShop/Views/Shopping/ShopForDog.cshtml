@@ -6,6 +6,39 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@section masterjs{
+
+    <script type="text/javascript">
+        function AddToCart(item) {
+            var id = $(item).attr('itemid');
+
+            var obj = {
+                id: id
+            };
+
+            $.ajax({
+                url: "/Cart/AddToCart",
+                method: "POST",
+                data: obj,
+                success: function (data) {
+                    $('#cart-counter').text(data);
+
+                    $('.cart-noti').removeClass('d-none');
+                    $('.cart-noti').fadeIn();
+
+                    setTimeout(function () {
+                        $('.cart-noti').fadeOut();
+                    }, 900);
+                },
+                error: function () {
+                    alert('There are some problems to add Item.');
+                }
+            });
+        }
+    </script>
+
+}
+
 
 <div class="row">
     <div class="col-sm-12 p-0">

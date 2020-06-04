@@ -5,6 +5,39 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@section masterjs{
+
+    <script type="text/javascript">
+        function AddToCart(item) {
+            var id = $(item).attr('itemid');
+
+            var obj = {
+                id: id
+            };
+
+            $.ajax({
+                url: "/Cart/AddToCart",
+                method: "POST",
+                data: obj,
+                success: function (data) {
+                    $('#cart-counter').text(data);
+
+                    $('.cart-noti').removeClass('d-none');
+                    $('.cart-noti').fadeIn();
+
+                    setTimeout(function () {
+                        $('.cart-noti').fadeOut();
+                    }, 900);
+                },
+                error: function () {
+                    alert('There are some problems to add Item.');
+                }
+            });
+        }
+    </script>
+
+} 
+
 <div class="col-sm-12 products">
     <div class="row category-title py-2 bg-info">
         <h3 class="text-uppercase pl-3">@ViewBag.CategoryTitle</h3>
@@ -21,9 +54,10 @@
                 </a>
                 <div class="mt-2 pt-3">
                     <div class="ml-3 mb-3 text-danger font-weight-bold price">@String.Format("{0:0,0}", item.Price) ₫</div>
-                    <a href="@Url.Action("AddToCart", "Cart", new { id = item.Id, url = Request.Url.ToString() })" class="cart-plus text-warning">
-                        <i class="fas fa-cart-plus"></i>
-                    </a>
+                    <div class="mt-2 pt-1">
+                        <div class="ml-3 mb-3 text-danger font-weight-bold price">@String.Format("{0:0,0}", item.Price) ₫</div>
+                        <button class="cart-plus text-warning bg-white border-0" itemid="@item.Id" onclick="AddToCart(this)"><i class="fas fa-cart-plus"></i></button>
+                    </div>
                 </div>
                 <a href="@Url.Action("Details", "Home", new { id = item.Id })" class="btn btn-dark btn-more-details">Xem chi tiết <i class="fas fa-info-circle"></i></a>
             </div>

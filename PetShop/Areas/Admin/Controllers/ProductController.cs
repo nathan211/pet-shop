@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using PetShop.Models;
+using PagedList;
+using PagedList.Mvc;
 
 namespace PetShop.Areas.Admin.Controllers
 {
@@ -17,12 +19,12 @@ namespace PetShop.Areas.Admin.Controllers
             return View();
         }
 
-        public ActionResult ListAllProducts()
+        public ActionResult ListAllProducts(int? page)
         {
             var products = db.Products.ToList();
             ViewBag.CategoryId = new SelectList(db.Categories.ToList(), "Id", "Name");
             ViewBag.SupplierId = new SelectList(db.Suppliers.ToList(), "Id", "Name");
-            return View(products);
+            return View(products.ToPagedList(page ?? 1, 5));
         }
 
         [HttpGet]

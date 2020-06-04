@@ -1,5 +1,6 @@
 ﻿@using PetShop.Models
-@model List<Product>
+@using PagedList.Mvc;
+@model PagedList.PagedList<Product>
 
 @{
     ViewBag.Title = "ListAllProducts";
@@ -233,5 +234,9 @@
         }
     </tbody>
 </table>
-
+<div class="row text-center">
+    <div class="col-sm-12">
+        @Html.PagedListPager(Model, page => Url.Action("ListAllProducts", new { page = page }))
+    </div>
+</div>
 @Html.Action("AddNew", "Product")

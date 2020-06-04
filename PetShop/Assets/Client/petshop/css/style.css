@@ -214,6 +214,15 @@ background: rgb(243, 102, 100)!important;
 	background: rgb(60, 173, 226);
 }
 
+.products .line{
+	background-color: black;
+	width: 65px;
+	height: 2px;
+	position: absolute;
+	bottom: 25px;
+	left: -5px;
+}
+
 /*=======================DETAILS================================*/
 .img-details {
 	width: 100%;
