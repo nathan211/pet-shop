@@ -19,6 +19,10 @@ namespace PetShop.Areas.Admin.Controllers
 
         public ActionResult ListAllCategories()
         {
+            if (Session["AdminLogin"] == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
             var categories = db.Categories.ToList();
             ViewBag.ParentId = new SelectList(db.ParentCategories.ToList(), "Id", "Name");
             ViewBag.PetId = new SelectList(db.Pets.ToList(), "Id", "Name");
@@ -27,6 +31,10 @@ namespace PetShop.Areas.Admin.Controllers
 
         public ActionResult AddNew()
         {
+            if (Session["AdminLogin"] == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
             ViewBag.ParentId = new SelectList(db.ParentCategories.ToList(), "Id", "Name");
             ViewBag.PetId = new SelectList(db.Pets.ToList(), "Id", "Name");
             return PartialView();
@@ -35,6 +43,10 @@ namespace PetShop.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult AddNew(Category category)
         {
+            if (Session["AdminLogin"] == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
             if (ModelState.IsValid)
             {
                 db.Categories.InsertOnSubmit(category);
@@ -47,6 +59,7 @@ namespace PetShop.Areas.Admin.Controllers
         [HttpPost]
         public JsonResult CategoryInfo(long id)
         {
+
             var category = db.Categories.Where(x => x.Id == id).FirstOrDefault();
             if(category != null)
             {
@@ -66,6 +79,7 @@ namespace PetShop.Areas.Admin.Controllers
         [HttpPost]
         public JsonResult UpdateCategory(long id, string name, int parentId, int petId)
         {
+ 
             var category = db.Categories.Where(x => x.Id == id).FirstOrDefault();
 
             if(category != null)
@@ -88,6 +102,10 @@ namespace PetShop.Areas.Admin.Controllers
         [HttpDelete]
         public ActionResult Delete(long id)
         {
+            if (Session["AdminLogin"] == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
             var category = db.Categories.Where(x => x.Id == id).FirstOrDefault();
             if (category != null)
             {

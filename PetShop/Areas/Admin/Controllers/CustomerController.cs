@@ -19,6 +19,10 @@ namespace PetShop.Areas.Admin.Controllers
 
         public ActionResult ListAllCustomers()
         {
+            if (Session["AdminLogin"] == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
             var customers = db.Customers.ToList();
             return PartialView(customers);
         }
@@ -26,6 +30,10 @@ namespace PetShop.Areas.Admin.Controllers
         [HttpDelete]
         public ActionResult Delete(long id)
         {
+            if (Session["AdminLogin"] == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
             var customer = db.Customers.Where(user => user.Id == id).FirstOrDefault();
             if (customer != null)
             {
@@ -39,6 +47,7 @@ namespace PetShop.Areas.Admin.Controllers
         [HttpPost]
         public JsonResult Details(long id)
         {
+
             var customer = db.Customers.Where(x => x.Id == id).FirstOrDefault();
             if (customer != null)
             {
@@ -61,7 +70,6 @@ namespace PetShop.Areas.Admin.Controllers
         [HttpPost]
         public JsonResult Update(long id, string fullName, bool gender, string username, string address, string phone, string email)
         {
-
             var customer = db.Customers.Where(x => x.Id == id).FirstOrDefault();
             customer.FullName = fullName;
             customer.Gender = gender;

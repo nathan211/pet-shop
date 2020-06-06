@@ -9,6 +9,50 @@
 
 @section masterjs{
     <script>
+        function AddNew() {
+
+            if (!$('#myForm').valid()) {
+                return false;
+            }
+            else {
+                var name = $('#Name').val();
+                var price = $('#Price').val();
+                var discount = $('#Discount').val();
+                var image = $('#Image').val();
+                var description = CKEDITOR.instances["Description"].getData();
+                var quantity = $('#Quantity').val();
+                var categoryId = $('#CategoryId').val();
+                var supplierId = $('#SupplierId').val();
+
+                var obj = {
+                    name: name,
+                    price: price,
+                    discount: discount,
+                    image: image,
+                    description: description,
+                    quantity: quantity,
+                    categoryId: categoryId,
+                    supplierId: supplierId
+                }
+            }
+
+            $.ajax({
+                url: '/Admin/Product/AddNew',
+                method: 'POST',
+                data: obj,
+                success: function (data) {
+                    if (data == "Success") {
+                        alert('Thêm sản phẩm thành công!');
+                        window.location.reload();
+                    }
+                },
+                error: function () {
+                    alert('Có lỗi xảy ra.');
+                }
+            });
+
+        }
+
         function ProductInfo(item) {
 
             var productId = $(item).attr('itemid');
@@ -25,6 +69,7 @@
                     if (data != "CannotFindProduct") {
                         $('#name_' + productId).val(data.Name);
                         $('#price_' + productId).val(data.Price);
+                        $('#discount_' + productId).val(data.Discount);
                         $('#image_' + productId).val(data.Image);
                         $('#quantity_' + productId).val(data.Quantity);
                         $('#category_' + productId).val(data.CategoryId).change();
@@ -84,6 +129,10 @@
             });
 
             $('.btn-save-product').click(function (event) {
+                event.preventDefault();
+            });
+
+            $('.btn-add-product').click(function (event) {
                 event.preventDefault();
             });
 
@@ -180,6 +229,13 @@
                                     </div>
 
                                     <div class="form-group">
+                                        @Html.Label("Giảm giá (%)")
+                                        <div class="col-md-12 p-0">
+                                            <input type="text" name="discount" id="discount_@item.Id" class="form-control" />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
                                         @Html.Label("Hình Ảnh")
                                         <div class="col-md-12 p-0">
                                             <input type="text" name="image" id="image_@item.Id" class="form-control image-path" readonly />
@@ -190,7 +246,16 @@
                                     <div class="form-group">
                                         @Html.Label("Mô tả")
                                         <div class="col-md-12 p-0">
-                                            <textarea class="form-control description" id="description_@item.Id">@Html.Raw(item.Description.ToString())</textarea>
+                                            <textarea class="form-control description" id="description_@item.Id">
+                                                @if (item.Description == null)
+                                                {
+                                                     @Html.Raw(" ")
+                                                }
+                                                else
+                                                {
+                                                    @Html.Raw(item.Description.ToString())
+                                                }
+                                            </textarea>
                                         </div>
                                     </div>
 

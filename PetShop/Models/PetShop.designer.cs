@@ -20,9 +20,9 @@ namespace PetShop.Models
 	using System.Linq.Expressions;
 	using System.ComponentModel;
 	using System;
-	
-	
-	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="PetShop")]
+    using System.ComponentModel.DataAnnotations;
+
+    [global::System.Data.Linq.Mapping.DatabaseAttribute(Name="PetShop")]
 	public partial class PetShopDataContext : System.Data.Linq.DataContext
 	{
 		
@@ -1861,6 +1861,7 @@ namespace PetShop.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(250)")]
+		[Required(ErrorMessage = "Bạn chưa nhập tên.")]
 		public string Name
 		{
 			get
@@ -1881,6 +1882,7 @@ namespace PetShop.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Price", DbType="Decimal(18,0)")]
+		[Required(ErrorMessage = "Bạn chưa nhập giá.")]
 		public System.Nullable<decimal> Price
 		{
 			get
@@ -1901,6 +1903,7 @@ namespace PetShop.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Image", DbType="NVarChar(250)")]
+		[Required(ErrorMessage = "Bạn chưa chọn ảnh.")]
 		public string Image
 		{
 			get
@@ -1961,6 +1964,7 @@ namespace PetShop.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Quantity", DbType="Int")]
+		[Required(ErrorMessage = "Bạn chưa nhập số lượng.")]
 		public System.Nullable<int> Quantity
 		{
 			get
@@ -1981,6 +1985,7 @@ namespace PetShop.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CategoryId", DbType="BigInt")]
+		[Required(ErrorMessage = "Bạn chưa chọn loại sản phẩm.")]
 		public System.Nullable<long> CategoryId
 		{
 			get
@@ -2005,6 +2010,7 @@ namespace PetShop.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SupplierId", DbType="BigInt")]
+		[Required(ErrorMessage = "Bạn chưa chọn nhà cung cấp.")]
 		public System.Nullable<long> SupplierId
 		{
 			get
@@ -2029,6 +2035,7 @@ namespace PetShop.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PetId", DbType="Int")]
+		[Required(ErrorMessage = "Bạn chưa chọn pet.")]
 		public System.Nullable<int> PetId
 		{
 			get

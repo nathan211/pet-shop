@@ -19,7 +19,7 @@ namespace PetShop.Controllers
         [HttpPost]
         public JsonResult Login(string username, string password)
         {
-            var customer = db.Customers.Where(x => x.Username == username && x.Password == password).FirstOrDefault();
+            
             if(String.IsNullOrEmpty(username))
             {
                 return Json("UsernameIsEmpty", JsonRequestBehavior.AllowGet);
@@ -32,7 +32,8 @@ namespace PetShop.Controllers
                 }
                 else
                 {
-                    if(customer != null)
+                    var customer = db.Customers.Where(x => x.Username == username && x.Password == password).FirstOrDefault();
+                    if (customer != null)
                     {
                         Session["UserLogin"] = customer;
                         return Json(customer.Username, JsonRequestBehavior.AllowGet);
@@ -79,6 +80,65 @@ namespace PetShop.Controllers
             return Json("Success", JsonRequestBehavior.AllowGet);
         }
 
-        
+        [HttpPost]
+        public JsonResult ShowInfo(long id)
+        {
+            var customer = db.Customers.Where(x => x.Id == id).FirstOrDefault();
+            if (customer != null)
+            {
+                return Json(new
+                {
+                    FullName = customer.FullName,
+                    Gender = customer.Gender,
+                    Username = customer.Username,
+                    Address = customer.Address,
+                    Phone = customer.Phone,
+                    Email = customer.Email
+                }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json("CannotFindCustomer", JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpPost]
+        public JsonResult UpdateInfo(long id, string fullName, bool gender, string username, string address, string phone, string email)
+        {
+
+            var customer = db.Customers.Where(x => x.Id == id).FirstOrDefault();
+            customer.FullName = fullName;
+            customer.Gender = gender;
+            customer.Username = username;
+            customer.Address = address;
+            customer.Phone = phone;
+            customer.Email = email;
+
+            UpdateModel(customer);
+            db.SubmitChanges();
+
+            Session["UserLogin"] = customer;
+
+            return Json("Success", JsonRequestBehavior.AllowGet);
+        }
+
+
+        [HttpPost]
+        public JsonResult ChangePwd(long id, string newPwd)
+        {
+            var customer = db.Customers.Where(x => x.Id == id).FirstOrDefault();
+            if(customer != null)
+            {
+                customer.Password = newPwd;
+                UpdateModel(customer);
+                db.SubmitChanges();
+                Session["UserLogin"] = customer;
+                return Json("Success", JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json("CannotFindCustomer", JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }

@@ -20,6 +20,10 @@ namespace PetShop.Areas.Admin.Controllers
 
         public ActionResult ListAllOrders()
         {
+            if (Session["AdminLogin"] == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
             var orders = db.Orders.ToList();
             ViewBag.StatusId = new SelectList(db.Status.ToList(), "Id", "Name");
             return View(orders);
@@ -27,13 +31,21 @@ namespace PetShop.Areas.Admin.Controllers
 
         public ActionResult ListOrderDetailsByOrderId(long id)
         {
+            if (Session["AdminLogin"] == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
             var orderDetails = db.OrderDetails.Where(x => x.OrderId == id).ToList();
             return PartialView(orderDetails);
         }
 
         [HttpPost]
         public ActionResult OrderStatus(long id)
-        {   
+        {
+            if (Session["AdminLogin"] == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
             var order = db.Orders.Where(x => x.Id == id).FirstOrDefault();
             return Json(order.StatusId, JsonRequestBehavior.AllowGet);
         }
@@ -41,6 +53,10 @@ namespace PetShop.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult UpdateStatus(long id, int statusId)
         {
+            if (Session["AdminLogin"] == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
             var order = db.Orders.Where(x => x.Id == id).FirstOrDefault();
             if(order != null)
             {
@@ -58,6 +74,10 @@ namespace PetShop.Areas.Admin.Controllers
         [HttpDelete]
         public ActionResult Delete(long id)
         {
+            if (Session["AdminLogin"] == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
             var orderDetails = db.OrderDetails.Where(x => x.OrderId == id).ToList();
             var order = db.Orders.Where(x => x.Id == id).FirstOrDefault();
             if (orderDetails != null)

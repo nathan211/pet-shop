@@ -21,6 +21,10 @@ namespace PetShop.Areas.Admin.Controllers
 
         public ActionResult ListAllProducts(int? page)
         {
+            if (Session["AdminLogin"] == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
             var products = db.Products.ToList();
             ViewBag.CategoryId = new SelectList(db.Categories.ToList(), "Id", "Name");
             ViewBag.SupplierId = new SelectList(db.Suppliers.ToList(), "Id", "Name");
@@ -30,28 +34,34 @@ namespace PetShop.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult AddNew()
         {
+            if (Session["AdminLogin"] == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
             ViewBag.CategoryId = new SelectList(db.Categories.ToList(), "Id", "Name");
             ViewBag.SupplierId = new SelectList(db.Suppliers.ToList(), "Id", "Name");
             return PartialView();
         }
 
         [HttpPost, ValidateInput(false)]
-        public ActionResult AddNew(Product product)
+        public JsonResult AddNew(Product product)
         {
-            if (ModelState.IsValid)
+
+            product.Status = true;
+            product.CreatedDate = DateTime.Now;
+            if(product.Discount > 0)
             {
-                product.Status = true;
-                product.CreatedDate = DateTime.Now;
-                db.Products.InsertOnSubmit(product);
-                db.SubmitChanges();
-                return RedirectToAction("ListAllProducts");
+                product.PromotePrice = product.Price - (product.Price * product.Discount / 100);
             }
-            return this.AddNew();
+            db.Products.InsertOnSubmit(product);
+            db.SubmitChanges();
+            return Json("Success", JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
         public JsonResult ProductInfo(long id)
         {
+
             var product = db.Products.Where(x => x.Id == id).FirstOrDefault();
             if (product != null)
             {
@@ -59,6 +69,7 @@ namespace PetShop.Areas.Admin.Controllers
                 {
                     Name = product.Name,
                     Price = product.Price,
+                    Discount = product.Discount,
                     Image = product.Image,
                     Description = product.Description,
                     Quantity = product.Quantity,
@@ -76,6 +87,7 @@ namespace PetShop.Areas.Admin.Controllers
         [HttpPost, ValidateInput(false)]
         public JsonResult UpdateProduct(long id, string name, decimal price, string image, string description, int quantity, long categoryId, long supplierId)
         {
+
             var product = db.Products.Where(x => x.Id == id).FirstOrDefault();
             if (product != null)
             {
@@ -100,6 +112,10 @@ namespace PetShop.Areas.Admin.Controllers
         [HttpDelete]
         public ActionResult Delete(long id)
         {
+            if (Session["AdminLogin"] == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
             var product = db.Products.Where(x => x.Id == id).FirstOrDefault();
             if (product != null)
             {

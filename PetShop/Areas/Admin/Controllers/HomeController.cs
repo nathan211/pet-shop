@@ -11,6 +11,10 @@ namespace PetShop.Areas.Admin.Controllers
         // GET: Admin/Home
         public ActionResult Index()
         {
+            if(Session["AdminLogin"] == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }
             return View();
         }
     }

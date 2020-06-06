@@ -115,7 +115,7 @@
 
                         @Html.Action("CartCounter", "Cart")
 
-                        @{ var userSession = Session["UserLogin"];}
+                        @{var userSession = Session["UserLogin"] as PetShop.Models.Customer;}
 
                         @if (userSession != null)
                         {
@@ -125,7 +125,8 @@
                                 </button>
                                 <div class="dropdown-menu text-center" aria-labelledby="dropdownMenu2">
                                     @Html.Action("ProfileName", "Customer")
-                                    <a href="@Url.Action("ProfileInfo", "Customer")" class="d-block">Thông tin</a>
+                                    <a href="#" class="d-block btn-show-info" onclick="ShowInfo(this)" itemid="@userSession.Id" data-toggle="modal" data-target="#myModal_p">Thông tin</a>
+                                    <a href="#" class="d-block btn-show-info" data-toggle="modal" data-target="#myModal_ChangePwd">Đỗi mật khẩu</a>
                                     <a href="@Url.Action("LogOut", "Customer")">Đăng xuất</a>
                                 </div>
                             </div>
@@ -138,7 +139,109 @@
                             </a>
                         }
 
+                        <!-- modal info change pwd -->
+                        <div class="modal fade" id="myModal_ChangePwd" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-lg" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header bg-info">
+                                        <h5 class="modal-title text-uppercase" id="modalTitle">Đỗi mật khẩu</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
 
+                                        <div class="form-group row mx-2">
+                                            <label class="col-sm-4">Mật khẩu cũ</label>
+                                            <input type="password" class="form-control col-sm-8" id="old_pwd">
+                                        </div>
+
+                                        <div class="form-group row mx-2">
+                                            <label class="col-sm-4">Mật khẩu mới</label>
+                                            <input type="password" class="form-control col-sm-8" id="new_pwd">
+                                        </div>
+
+                                        <div class="form-group row mx-2">
+                                            <label class="col-sm-4">Nhập lại mật khẩu mới</label>
+                                            <input type="password" class="form-control col-sm-8" id="new_pwd_confirm">
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        @{var userPwd = Session["UserLogin"] as PetShop.Models.Customer;}
+                                        @if (userPwd != null)
+                                        {
+                                            <a href="#" class="btn btn-primary btn-save-info" onclick="SavePwd(this)" itemid="@userPwd.Id">Lưu</a>
+                                        }
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- modal info customer -->
+                        <div class="modal fade" id="myModal_p" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-lg" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header bg-info">
+                                        <h5 class="modal-title text-uppercase" id="modalTitle">Thông tin khách hàng</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="form-group row mx-2">
+                                            <label class="col-sm-3">Họ và tên</label>
+                                            <input type="text" class="form-control col-sm-9" id="full-name_p" aria-describedby="emailHelp" name="Username">
+                                        </div>
+                                        <div class="row my-2 mx-2">
+                                            <label class="col-sm-3">Giới tính </label>
+                                            <form class="col-sm-9" id="myForm_p">
+                                                <div class="form-check-inline">
+                                                    <label class="form-check-label">
+                                                        <input type="radio" class="form-check-input" id="male_p" name="gender" value="true">Nam
+                                                    </label>
+                                                </div>
+                                                <div class="form-check-inline">
+                                                    <label class="form-check-label">
+                                                        <input type="radio" class="form-check-input" id="female_p" name="gender" value="false">Nữ
+                                                    </label>
+                                                </div>
+                                            </form>
+                                        </div>
+
+                                        <div class="form-group row mx-2">
+                                            <label class="col-sm-3">Tài khoản</label>
+                                            <input type="text" class="form-control col-sm-9" id="username_p">
+                                        </div>
+
+                                        <div class="form-group row mx-2">
+                                            <label class="col-sm-3">Địa chỉ</label>
+                                            <textarea type="text" class="form-control col-sm-9" id="address_p"></textarea>
+                                        </div>
+                                        <div class="form-group row mx-2">
+                                            <label class="col-sm-3">Phone</label>
+                                            <input type="text" class="form-control col-sm-9" id="phone_p">
+                                        </div>
+                                        <div class="form-group row mx-2">
+                                            <label class="col-sm-3">Email</label>
+                                            <input type="text" class="form-control col-sm-9" id="email_p">
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        @{var user = Session["UserLogin"] as PetShop.Models.Customer;}
+                                        @if (user != null)
+                                        {
+                                            <a href="#" class="btn btn-primary btn-save-info" onclick="UpdateInfo(this)" itemid="@user.Id">Lưu</a>
+                                        }
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- modal info login and register -->
                         <div class="modal fade" id="modal-login" role="dialog" data-backdrop="static" data-keyboard="false">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
@@ -213,53 +316,187 @@
     @RenderSection("masterjs", required: false)
 
     <script>
+        function ShowInfo(item) {
+            var userId = $(item).attr('itemid');
+
+            var obj = {
+                id: userId
+            };
+
+            console.log(obj);
+
+            $.ajax({
+                url: '/Customer/ShowInfo',
+                method: 'POST',
+                data: obj,
+                success: function (data) {
+                    if (data != "CannotFindCustomer") {
+                        $('#full-name_p').val(data.FullName);
+                        if (data.Gender == true) {
+                            $('#male_p').prop('checked', true);
+                        }
+                        else {
+                            $('#female_p').prop('checked', true);
+                        }
+                        $('#username_p').val(data.Username);
+                        $('#address_p').val(data.Address);
+                        $('#phone_p').val(data.Phone);
+                        $('#email_p').val(data.Email);
+                    }
+                },
+                error: function () {
+                    alert('Có lỗi xảy ra.');
+                }
+            });
+        };
+
+        function UpdateInfo(item) {
+            var userId = $(item).attr('itemid');
+            var fullName = $('#full-name_p').val();
+            var gender = $("input[name='gender']:checked", "#myForm_p").val();
+            var username = $('#username_p').val();
+            var address = $('#address_p').val();
+            var phone = $('#phone_p').val();
+            var email = $('#email_p').val();
+
+            console.log(gender);
+
+            var obj = {
+                id: userId,
+                fullName: fullName,
+                gender: gender,
+                username: username,
+                address: address,
+                phone: phone,
+                email: email
+            };
+
+            $.ajax({
+                url: '/Customer/UpdateInfo',
+                method: 'POST',
+                data: obj,
+                success: function (data) {
+                    if (data == "Success") {
+                        alert('Cập nhật thành công!');
+                        $('#myModal_p').modal('toggle');
+                        window.location.reload();
+                    }
+                },
+                error: function () {
+                    alert('Có lỗi xảy ra.');
+                }
+            });
+        };
+
+
+        function SavePwd(item) {
+            var userId = $(item).attr('itemid');
+            var oldPwd = $('#old_pwd').val();
+            var newPwd = $('#new_pwd').val();
+            var newPwdConfirm = $('#new_pwd_confirm').val();
+
+            if (oldPwd == "" || oldPwd == undefined) {
+                alert('Bạn chưa nhập mật khẩu cũ.');
+            }
+            else {
+                if (newPwd == "" || newPwd == undefined) {
+                    alert('Bạn chưa nhập mật khẩu mới.');
+                }
+                else {
+                    if (newPwdConfirm == "" || newPwdConfirm == undefined) {
+                        alert('Bạn chưa nhập xác nhận mật khẩu.');
+                    }
+                    else {
+                        if (newPwd != newPwdConfirm) {
+                            alert('Mật khẩu không trùng khớp.');
+                        }
+                        else {
+                            var obj = {
+                                id: userId,
+                                newPwd: newPwd
+                            };
+
+                            $.ajax({
+                                url: '/Customer/ChangePwd',
+                                method: 'POST',
+                                data: obj,
+                                success: function (data) {
+                                    if (data == "Success") {
+                                        alert('Thay đỗi mật khẩu thành công.');
+                                        window.location.reload();
+                                    }
+                                    else {
+                                        alert(data);
+                                    }
+                                },
+                                error: function () {
+                                    alert('Có lỗi xảy ra.')
+                                }
+                            });
+                        }
+                    }
+                }
+            }
+        }
+
         function Login() {
             var username = $('#username').val();
             var password = $('#password').val();
 
-            var obj = {
-                username: username,
-                password: password
-            };
+            if (username == "" || username == undefined) {
+                alert('Bạn chưa nhập tài khoản.');
+            }
+            else {
+                if (password == "" || username == undefined) {
+                    alert('Bạn chưa nhập mật khẩu.');
+                }
+                else {
+                    var obj = {
+                        username: username,
+                        password: password
+                    };
 
-            $.ajax({
-                url: '/Customer/Login',
-                method: 'POST',
-                data: obj,
-                success: function (data) {
-                    if (data == "UsernameIsEmpty") {
-                        $('#noti').text(data);
-                        $('#noti').removeClass('fade');
-                        $('#noti').addClass('show');
-                    }
-                    else {
-                        if (data == "PasswordIsEmpty") {
-                            $('#noti').text(data);
-                            $('#noti').removeClass('fade');
-                            $('#noti').addClass('show');
-                        }
-                        else {
-                            if (data == "IncorrectUser") {
+                    $.ajax({
+                        url: '/Customer/Login',
+                        method: 'POST',
+                        data: obj,
+                        success: function (data) {
+                            if (data == "UsernameIsEmpty") {
                                 $('#noti').text(data);
                                 $('#noti').removeClass('fade');
                                 $('#noti').addClass('show');
                             }
                             else {
-                                $('#modal-login').modal('hide');
-                                $('#user-login').text('(' + data + ')');
-                                window.location.reload();
-                            }
+                                if (data == "PasswordIsEmpty") {
+                                    $('#noti').text(data);
+                                    $('#noti').removeClass('fade');
+                                    $('#noti').addClass('show');
+                                }
+                                else {
+                                    if (data == "IncorrectUser") {
+                                        $('#noti').text(data);
+                                        $('#noti').removeClass('fade');
+                                        $('#noti').addClass('show');
+                                    }
+                                    else {
+                                        $('#modal-login').modal('hide');
+                                        $('#user-login').text('(' + data + ')');
+                                        window.location.reload();
+                                    }
 
+                                }
+                            }
+                        },
+                        error: function () {
+                            alert('there is some problem.');
                         }
-                    }
-                },
-                error: function () {
-                    alert('there is some problem.');
+                    });
                 }
-            });
+            }
         };
 
         function Register() {
+
             var fullName = $('#full-name').val();
             var gender = $('input[name="gender"]:checked').val();
             var username = $('#username-register').val();
@@ -333,7 +570,12 @@
             $('#btn-login').click(function (event) {
                 event.preventDefault();
             });
-
+            $('#btn-show-info').click(function (event) {
+                event.preventDefault();
+            });
+             $('#btn-save-info').click(function (event) {
+                event.preventDefault();
+            });
         });
     </script>
 

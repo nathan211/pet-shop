@@ -10,47 +10,37 @@ namespace PetShop.Controllers
     public class CartController : Controller
     {
         PetShopDataContext db = new PetShopDataContext();
+        static List<Cart> listCartItem = new List<Cart>();
 
         // GET: Cart
         public ActionResult Index()
         {
-            List<Cart> list = TakeCart();
-            if (list.Count == 0)
+            if (listCartItem.Count == 0)
             {
                 return RedirectToAction("Index", "Home");
             }
             ViewBag.Total = Total();
             ViewBag.TotalMoney = TotalMoney();
 
-            return View(list);
+            return View(listCartItem);
         }
 
-        public List<Cart> TakeCart()
-        {
-            List<Cart> list = Session["Cart"] as List<Cart>;
-            if (list == null)
-            {
-                list = new List<Cart>();
-                Session["Cart"] = list;
-            }
-            return list;
-        }
 
         [HttpPost]
         public JsonResult AddToCart(long id)
         {
-            List<Cart> list = TakeCart();
-            Cart cartItem = list.Find(x => x.Id == id);
+            
+            Cart cartItem = listCartItem.Find(x => x.Id == id);
             if (cartItem == null)
             {
                 cartItem = new Cart(id);
-                list.Add(cartItem);
+                listCartItem.Add(cartItem);
             }
             else
             {
                 cartItem.Count++;
             }
-            var counter = list.Sum(x => x.Count);
+            var counter = listCartItem.Sum(x => x.Count);
 
             return Json(counter, JsonRequestBehavior.AllowGet);
         }
@@ -58,8 +48,8 @@ namespace PetShop.Controllers
         [HttpPost]
         public JsonResult IncreaseCount(long id, int count)
         {
-            List<Cart> list = TakeCart();
-            Cart cartItem = list.Find(x => x.Id == id);
+          
+            Cart cartItem = listCartItem.Find(x => x.Id == id);
 
             cartItem.Count++;
 
@@ -72,8 +62,7 @@ namespace PetShop.Controllers
         [HttpPost]
         public JsonResult DecreaseCount(long id, int count)
         {
-            List<Cart> list = TakeCart();
-            Cart cartItem = list.Find(x => x.Id == id);
+            Cart cartItem = listCartItem.Find(x => x.Id == id);
 
             cartItem.Count--;
 
@@ -86,21 +75,20 @@ namespace PetShop.Controllers
         [HttpPost]
         public JsonResult AddToCartInDetails(long id, int count)
         {
-            List<Cart> list = TakeCart();
-            Cart cartItem = list.Find(x => x.Id == id);
+            Cart cartItem = listCartItem.Find(x => x.Id == id);
 
             if (cartItem == null)
             {
                 cartItem = new Cart(id);
                 cartItem.Count = count;
-                list.Add(cartItem);
+                listCartItem.Add(cartItem);
             }
             else
             {
                 cartItem.Count += count;
             }
 
-            var counter = list.Sum(x => x.Count);
+            var counter = listCartItem.Sum(x => x.Count);
 
             return Json(counter, JsonRequestBehavior.AllowGet);
         }
@@ -108,10 +96,9 @@ namespace PetShop.Controllers
         public int Total()
         {
             int total = 0;
-            List<Cart> list = Session["Cart"] as List<Cart>;
-            if (list != null)
+            if (listCartItem != null)
             {
-                total = list.Sum(x => x.Count);
+                total = listCartItem.Sum(x => x.Count);
             }
             return total;
         }
@@ -119,10 +106,9 @@ namespace PetShop.Controllers
         public decimal TotalMoney()
         {
             decimal totalMoney = 0;
-            List<Cart> list = Session["Cart"] as List<Cart>;
-            if (list != null)
+            if (listCartItem != null)
             {
-                totalMoney = list.Sum(x => x.TotalPrice);
+                totalMoney = listCartItem.Sum(x => x.TotalPrice);
             }
             return totalMoney;
         }
@@ -130,7 +116,7 @@ namespace PetShop.Controllers
 
         public ActionResult CartCounter()
         {
-            if (Session["Cart"] != null)
+            if (listCartItem != null)
             {
                 ViewBag.Total = Total();
                 return PartialView();
@@ -141,14 +127,13 @@ namespace PetShop.Controllers
 
         public ActionResult RemoveFromCart(long id)
         {
-            List<Cart> list = TakeCart();
-            Cart item = list.SingleOrDefault(x => x.Id == id);
+            Cart item = listCartItem.SingleOrDefault(x => x.Id == id);
             if (item != null)
             {
-                list.RemoveAll(x => x.Id == id);
+                listCartItem.RemoveAll(x => x.Id == id);
                 return RedirectToAction("Index");
             }
-            if (list.Count == 0)
+            if (listCartItem.Count == 0)
             {
                 return RedirectToAction("Index", "Home");
             }
@@ -158,23 +143,21 @@ namespace PetShop.Controllers
 
         public ActionResult RemoveAll()
         {
-            List<Cart> list = TakeCart();
-            list.Clear();
+            listCartItem.Clear();
             return RedirectToAction("Index", "Home");
         }
 
         public ActionResult CheckOut()
         {
 
-            List<Cart> list = TakeCart();
-            if (list.Count == 0)
+            if (listCartItem.Count == 0)
             {
                 return RedirectToAction("Index", "Home");
             }
             ViewBag.Total = Total();
             ViewBag.TotalMoney = TotalMoney();
             ViewBag.CustomerInfo = Session["UserLogin"];
-            return View(list);
+            return View(listCartItem);
         }
 
         [HttpPost]
@@ -212,9 +195,7 @@ namespace PetShop.Controllers
 
             if (orderNew != null)
             {
-                List<Cart> cartItems = TakeCart();
-                
-                foreach (var item in cartItems)
+                foreach (var item in listCartItem)
                 {
                     var orderDetail = new OrderDetail();
                     orderDetail.OrderId = order.Id;
@@ -238,7 +219,6 @@ namespace PetShop.Controllers
         public JsonResult CheckSession()
         {
             var userSession = (Customer)Session["UserLogin"];
-            var cartItems = TakeCart();
             var check = 0;
             if (userSession != null)
             {

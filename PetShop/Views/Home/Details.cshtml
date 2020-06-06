@@ -70,7 +70,14 @@
                     @Model.Name
                 </h3>
                 <p class="desciption">
-                    @Html.Raw(Model.Description.ToString())
+                    @if (@Model.Description == null)
+                    {
+                        @Html.Raw(" ")
+                    }
+                    else
+                    {
+                        @Html.Raw(@Model.Description.ToString())
+                    }
                 </p>
                 <div class="price text-danger font-weight-bold">
                     @String.Format("{0:0,0}", Model.Price) ₫
