@@ -37,10 +37,11 @@
                 <!-- end logo -->
 
                 <div class="col-sm-7 search mt-5 pl-4">
-                    <form class="form-inline">
-                        <input class="form-control mr-sm-2" type="search" placeholder="Tìm kiếm...">
+                    @using (Html.BeginForm("Search", "Home", FormMethod.Post, new { @class = "form-inline" }))
+                    {
+                        <input class="form-control mr-sm-2" type="search" placeholder="Tìm kiếm..." name="searchStr">
                         <button class="btn btn-danger btn-search my-2 my-sm-0" type="submit">Tìm</button>
-                    </form>
+                    }
                 </div>
                 <!-- end search -->
                 <!-- start contact -->
@@ -89,10 +90,7 @@
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                         <a class="dropdown-item" href="@Url.Action("ShopForDog", "Shopping")">Shop cho Chó</a>
-                                        <a class="dropdown-item" href="#">Shop cho Mèo</a>
-                                        <a class="dropdown-item" href="#">Shop cho Hamster</a>
-                                        <a class="dropdown-item" href="#">Shop cho Thỏ</a>
-                                        <a class="dropdown-item" href="#">Shop cho Bò Sát</a>
+                                        <a class="dropdown-item" href="@Url.Action("ShopForCat", "Shopping")">Shop cho Mèo</a>
                                     </div>
                                 </li>
                                 <li class="nav-item dropdown mx-4">

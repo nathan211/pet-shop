@@ -6228,6 +6228,7 @@
     <Content Include="Areas\Admin\Views\Category\ListAllCategories.cshtml" />
     <Content Include="Areas\Admin\Views\Category\AddNew.cshtml" />
     <Content Include="Areas\Admin\Views\Login\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Category\Search.cshtml" />
     <None Include="Models\PetShop.dbml.layout">
       <DependentUpon>PetShop.dbml</DependentUpon>
     </None>
@@ -6357,6 +6358,11 @@
     <Content Include="Views\Shopping\MenuFoodForDog.cshtml" />
     <Content Include="Views\Shopping\MenuAccessoryForDog.cshtml" />
     <Content Include="Views\Shopping\MenuToyForDog.cshtml" />
+    <Content Include="Views\Home\Search.cshtml" />
+    <Content Include="Views\Shopping\ShopForCat.cshtml" />
+    <Content Include="Views\Shopping\MenuFoodForCat.cshtml" />
+    <Content Include="Views\Shopping\MenuAccessoryForCat.cshtml" />
+    <Content Include="Views\Shopping\MenuToyForCat.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

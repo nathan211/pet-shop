@@ -75,7 +75,7 @@
 }
 
 <br>
-<h3>Loại sản phẩm</h3>
+<h3>Kết quả tìm kiếm</h3>
 <!-- sorting and searching -->
 <div class="row my-2">
     <div class="col-sm-6">
@@ -134,20 +134,20 @@
                                         <label>Tên loại</label>
                                         <input type="text" class="form-control col-sm-12" id="category-name_@item.Id" aria-describedby="emailHelp" name="Username">
                                     </div>
-                                    <div class="form-group row mx-2"">
+                                    <div class="form-group row mx-2" ">
                                         @Html.Label("Danh mục")
                                         <div class="col-md-12 p-0">
                                             @Html.DropDownList("ParentId", null, new { @class = "form-control", @id = "ParentCategory_" + item.Id })
                                         </div>
                                     </div>
-                                    <div class="form-group row mx-2"">
+                                    <div class="form-group row mx-2" ">
                                         @Html.Label("Danh mục")
                                         <div class="col-md-12 p-0">
                                             @Html.DropDownList("PetId", null, new { @class = "form-control", @id = "Pet_" + item.Id })
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="modal-footer">
                                     <a href="#" class="btn btn-primary btn-save-customer" onclick="UpdateCategory(this)" itemid="@item.Id">Lưu</a>
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
@@ -167,4 +167,4 @@
     </tbody>
 </table>
 
-@Html.Action("AddNew", "Category")
+

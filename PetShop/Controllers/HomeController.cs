@@ -18,6 +18,12 @@ namespace PetShop.Controllers
             return View(products);
         }
 
+        public ActionResult Search(string searchStr)
+        {
+            var products = db.Products.Where(x => x.Name.ToLower().Contains(searchStr.ToLower()) || x.Supplier.Name.ToLower().Contains(searchStr.ToLower())).Take(12).ToList();
+            return View(products);
+        }
+
 
         // product details
         public ActionResult Details(long id)
@@ -30,7 +36,6 @@ namespace PetShop.Controllers
         public List<Product> ListByCategoryId(long? id, int count)
         {
             var products = db.Products.Where(x => x.CategoryId == id).Take(count).ToList();
-
             return products;
         }
 

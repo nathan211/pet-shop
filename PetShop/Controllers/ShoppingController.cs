@@ -17,6 +17,8 @@ namespace PetShop.Controllers
             return View();
         }
 
+        //Shop for dog
+
         public ActionResult ShopForDog()
         {
             var products = db.Products.Where(x => x.PetId == 1).ToList();
@@ -36,6 +38,32 @@ namespace PetShop.Controllers
         }
 
         public ActionResult MenuToyForDog(int parentId = 3, int petId = 1)
+        {
+            var categories = db.Categories.Where(x => x.ParentId == parentId && x.PetId == petId).ToList();
+            return PartialView(categories);
+        }
+
+        //Shop for cat
+
+         public ActionResult ShopForCat()
+        {
+            var products = db.Products.Where(x => x.PetId == 2).ToList();
+            return View(products);
+        }
+
+        public ActionResult MenuFoodForCat(int parentId = 2, int petId = 2)
+        {
+            var categories = db.Categories.Where(x => x.ParentId == parentId && x.PetId == petId).ToList();
+            return PartialView(categories);
+        }
+
+        public ActionResult MenuAccessoryForCat(int parentId = 1, int petId = 2)
+        {
+            var categories = db.Categories.Where(x => x.ParentId == parentId && x.PetId == petId).ToList();
+            return PartialView(categories);
+        }
+
+        public ActionResult MenuToyForCat(int parentId = 3, int petId = 2)
         {
             var categories = db.Categories.Where(x => x.ParentId == parentId && x.PetId == petId).ToList();
             return PartialView(categories);

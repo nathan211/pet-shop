@@ -29,6 +29,17 @@ namespace PetShop.Areas.Admin.Controllers
             return View(categories);
         }
 
+        [HttpPost]
+        public ActionResult Search(string searchStr)
+       {
+            var categories = db.Categories.Where(x => x.Name.ToLower().Contains(searchStr.ToLower())).ToList();
+            ViewBag.ParentId = new SelectList(db.ParentCategories.ToList(), "Id", "Name");
+            ViewBag.PetId = new SelectList(db.Pets.ToList(), "Id", "Name");
+            ViewBag.ParentId = new SelectList(db.ParentCategories.ToList(), "Id", "Name");
+            ViewBag.PetId = new SelectList(db.Pets.ToList(), "Id", "Name");
+            return View(categories);
+        }
+
         public ActionResult AddNew()
         {
             if (Session["AdminLogin"] == null)
