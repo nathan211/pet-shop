@@ -1,4 +1,7 @@
-﻿@model List<PetShop.Models.Category>
+﻿@using PetShop.Models
+@using PagedList.Mvc;
+@model PagedList.PagedList<Category>
+
 
 @{
     ViewBag.Title = "ListAllCategories";
@@ -88,7 +91,7 @@
 
     </div>
     <div class="col-sm-6">
-        @using (Html.BeginForm("Search", "Category", FormMethod.Post, new { @class = "form-inline my-2 my-lg-0 float-right" }))
+        @using (Html.BeginForm("ListAllCategories", "Category", FormMethod.Get, new { @class = "form-inline my-2 my-lg-0 float-right" }))
         {
             <input class="form-control mr-sm-2 search-input" type="search" placeholder="Tìm kiếm..." aria-label="Search" name="searchStr">
             <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
@@ -134,20 +137,20 @@
                                         <label>Tên loại</label>
                                         <input type="text" class="form-control col-sm-12" id="category-name_@item.Id" aria-describedby="emailHelp" name="Username">
                                     </div>
-                                    <div class="form-group row mx-2"">
+                                    <div class="form-group row mx-2" ">
                                         @Html.Label("Danh mục")
                                         <div class="col-md-12 p-0">
                                             @Html.DropDownList("ParentId", null, new { @class = "form-control", @id = "ParentCategory_" + item.Id })
                                         </div>
                                     </div>
-                                    <div class="form-group row mx-2"">
+                                    <div class="form-group row mx-2" ">
                                         @Html.Label("Danh mục")
                                         <div class="col-md-12 p-0">
                                             @Html.DropDownList("PetId", null, new { @class = "form-control", @id = "Pet_" + item.Id })
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="modal-footer">
                                     <a href="#" class="btn btn-primary btn-save-customer" onclick="UpdateCategory(this)" itemid="@item.Id">Lưu</a>
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
@@ -166,5 +169,9 @@
         }
     </tbody>
 </table>
-
+<div class="row text-center">
+    <div class="col-sm-12">
+        @Html.PagedListPager(Model, page => Url.Action("ListAllCategories", new { page = page }))
+    </div>
+</div>
 @Html.Action("AddNew", "Category")

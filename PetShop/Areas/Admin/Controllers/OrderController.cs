@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
 using PetShop.Models;
 
 namespace PetShop.Areas.Admin.Controllers
@@ -18,15 +19,22 @@ namespace PetShop.Areas.Admin.Controllers
         }
 
 
-        public ActionResult ListAllOrders()
+        public ActionResult ListAllOrders(int? page, string searchStr)
         {
             if (Session["AdminLogin"] == null)
             {
                 return RedirectToAction("Index", "Login");
             }
-            var orders = db.Orders.ToList();
+
+            if (String.IsNullOrEmpty(searchStr))
+            {
+                searchStr = " ";
+            }
+
+            var orders = db.Orders.Where(x => x.Customer.FullName.Contains(searchStr)
+            || x.Customer.Username.Contains(searchStr)).ToList();
             ViewBag.StatusId = new SelectList(db.Status.ToList(), "Id", "Name");
-            return View(orders);
+            return View(orders.ToPagedList(page ?? 1, 5));
         }
 
         public ActionResult ListOrderDetailsByOrderId(long id)

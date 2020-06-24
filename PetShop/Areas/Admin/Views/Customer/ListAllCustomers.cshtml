@@ -76,6 +76,9 @@
                         $('#myModal_' + customerId).modal('toggle');
                         window.location.reload();
                     }
+                    else {
+                        alert('Không tìm thấy khách hàng.');
+                    }
                 },
                 error: function () {
                     alert('Có lỗi xảy ra.');
@@ -110,10 +113,11 @@
 
     </div>
     <div class="col-sm-6">
-        <form class="form-inline my-2 my-lg-0 float-right">
-            <input class="form-control mr-sm-2 search-input" type="search" placeholder="Tìm kiếm..." aria-label="Search">
+        @using (Html.BeginForm("Search", "Customer", FormMethod.Post, new { @class = "form-inline my-2 my-lg-0 float-right" }))
+        {
+            <input class="form-control mr-sm-2 search-input" type="search" placeholder="Tìm kiếm..." aria-label="Search" name="searchStr">
             <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
-        </form>
+        }
     </div>
 </div>
 <table class="table table-striped">
@@ -198,14 +202,14 @@
                         </div>
                     </div>
                     @Ajax.ActionLink(" ", "Delete", "Customer", new { id = item.Id }, new AjaxOptions
-                              {
-                                  Confirm = "Bạn có chắc chắn muốn khách hàng này?",
-                                  OnComplete = "$('#row_" + item.Id + "').remove()",
-                                  HttpMethod = "Delete"
-                              }, new { @class = "fas fa-trash mx-1" })
+               {
+                   Confirm = "Bạn có chắc chắn muốn khách hàng này?",
+                   OnComplete = "$('#row_" + item.Id + "').remove()",
+                   HttpMethod = "Delete"
+               }, new { @class = "fas fa-trash mx-1" })
                 </td>
             </tr>
-        }
+            }
     </tbody>
 </table>
 

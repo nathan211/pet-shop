@@ -24,7 +24,18 @@ namespace PetShop.Areas.Admin.Controllers
                 return RedirectToAction("Index", "Login");
             }
             var customers = db.Customers.ToList();
-            return PartialView(customers);
+            return View(customers);
+        }
+
+        public ActionResult Search(string searchStr)
+        {
+            var customers = db.Customers.Where(x => x.FullName.ToLower().Contains(searchStr.ToLower()) 
+            || x.Username.ToLower().Contains(searchStr.ToLower()) 
+            || x.Address.ToLower().Contains(searchStr.ToLower()) 
+            || x.Username.ToLower().Contains(searchStr.ToLower())
+            || x.Phone.ToLower().Contains(searchStr.ToLower())
+            || x.Email.ToLower().Contains(searchStr.ToLower())).ToList();
+            return View("ListAllCustomers", customers);
         }
 
         [HttpDelete]
@@ -71,6 +82,10 @@ namespace PetShop.Areas.Admin.Controllers
         public JsonResult Update(long id, string fullName, bool gender, string username, string address, string phone, string email)
         {
             var customer = db.Customers.Where(x => x.Id == id).FirstOrDefault();
+            if(customer == null)
+            {
+                return Json("Fail", JsonRequestBehavior.AllowGet);
+            }
             customer.FullName = fullName;
             customer.Gender = gender;
             customer.Username = username;

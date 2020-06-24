@@ -6,8 +6,8 @@
     </li>
     @foreach (var item in Model)
     {
-        <li>
-            <a href="#" class="list-group-item bg-transparent text-white border-0">@item.Name</a>
+        <li class="list-group-item bg-transparent p-0 text-center">
+            <a href="@Url.Action("ListByMenuSide", "Home", new { id = item.Id })" class="list-group-item text-dark border-0 bg-transparent">@item.Name</a>
         </li>
     }
 

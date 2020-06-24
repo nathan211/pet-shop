@@ -168,10 +168,11 @@
 
     </div>
     <div class="col-sm-6">
-        <form class="form-inline my-2 my-lg-0 float-right">
-            <input class="form-control mr-sm-2 search-input" type="search" placeholder="Tìm kiếm..." aria-label="Search">
+        @using (Html.BeginForm("ListAllProducts", "Product", FormMethod.Get, new { @class = "form-inline my-2 my-lg-0 float-right" }))
+        {
+            <input class="form-control mr-sm-2 search-input" type="search" placeholder="Tìm kiếm..." aria-label="Search" name="searchStr">
             <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
-        </form>
+        }
     </div>
 </div>
 <table class="table table-striped">

@@ -6228,7 +6228,6 @@
     <Content Include="Areas\Admin\Views\Category\ListAllCategories.cshtml" />
     <Content Include="Areas\Admin\Views\Category\AddNew.cshtml" />
     <Content Include="Areas\Admin\Views\Login\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Category\Search.cshtml" />
     <None Include="Models\PetShop.dbml.layout">
       <DependentUpon>PetShop.dbml</DependentUpon>
     </None>

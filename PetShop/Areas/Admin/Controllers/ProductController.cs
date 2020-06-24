@@ -19,18 +19,28 @@ namespace PetShop.Areas.Admin.Controllers
             return View();
         }
 
-        public ActionResult ListAllProducts(int? page)
+        public ActionResult ListAllProducts(int? page, string searchStr)
         {
             if (Session["AdminLogin"] == null)
             {
                 return RedirectToAction("Index", "Login");
             }
-            var products = db.Products.ToList();
+
+            if (String.IsNullOrEmpty(searchStr))
+            {
+                searchStr = " ";
+            }
+
+            var products = db.Products.Where(x => x.Name.ToLower().Contains(searchStr.ToLower())
+            || x.Category.Name.ToLower().Contains(searchStr.ToLower())).ToList();
+
             ViewBag.CategoryId = new SelectList(db.Categories.ToList(), "Id", "Name");
             ViewBag.SupplierId = new SelectList(db.Suppliers.ToList(), "Id", "Name");
+
             return View(products.ToPagedList(page ?? 1, 5));
         }
 
+       
         [HttpGet]
         public ActionResult AddNew()
         {

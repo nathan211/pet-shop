@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
 using PetShop.Models;
 
 namespace PetShop.Areas.Admin.Controllers
@@ -17,27 +18,26 @@ namespace PetShop.Areas.Admin.Controllers
             return View();
         }
 
-        public ActionResult ListAllCategories()
+        public ActionResult ListAllCategories(int? page, string searchStr)
         {
             if (Session["AdminLogin"] == null)
             {
                 return RedirectToAction("Index", "Login");
             }
-            var categories = db.Categories.ToList();
-            ViewBag.ParentId = new SelectList(db.ParentCategories.ToList(), "Id", "Name");
-            ViewBag.PetId = new SelectList(db.Pets.ToList(), "Id", "Name");
-            return View(categories);
-        }
 
-        [HttpPost]
-        public ActionResult Search(string searchStr)
-       {
-            var categories = db.Categories.Where(x => x.Name.ToLower().Contains(searchStr.ToLower())).ToList();
+            if (String.IsNullOrEmpty(searchStr))
+            {
+                searchStr = " ";
+            }
+
+            var categories = db.Categories.Where(x => x.Name.Contains(searchStr) 
+            || x.ParentCategory.Name.Contains(searchStr)
+            || x.Pet.Name.Contains(searchStr)).ToList();
+
             ViewBag.ParentId = new SelectList(db.ParentCategories.ToList(), "Id", "Name");
             ViewBag.PetId = new SelectList(db.Pets.ToList(), "Id", "Name");
-            ViewBag.ParentId = new SelectList(db.ParentCategories.ToList(), "Id", "Name");
-            ViewBag.PetId = new SelectList(db.Pets.ToList(), "Id", "Name");
-            return View(categories);
+
+            return View(categories.ToPagedList(page ?? 1, 5));
         }
 
         public ActionResult AddNew()

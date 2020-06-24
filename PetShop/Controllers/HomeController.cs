@@ -20,7 +20,7 @@ namespace PetShop.Controllers
 
         public ActionResult Search(string searchStr)
         {
-            var products = db.Products.Where(x => x.Name.ToLower().Contains(searchStr.ToLower()) || x.Supplier.Name.ToLower().Contains(searchStr.ToLower())).Take(12).ToList();
+            var products = db.Products.Where(x => x.Name.ToLower().Contains(searchStr.ToLower()) || x.Supplier.Name.ToLower().Contains(searchStr.ToLower())).ToList();
             return View(products);
         }
 

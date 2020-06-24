@@ -441,56 +441,47 @@
             var username = $('#username').val();
             var password = $('#password').val();
 
-            if (username == "" || username == undefined) {
-                alert('Bạn chưa nhập tài khoản.');
-            }
-            else {
-                if (password == "" || username == undefined) {
-                    alert('Bạn chưa nhập mật khẩu.');
-                }
-                else {
-                    var obj = {
-                        username: username,
-                        password: password
-                    };
 
-                    $.ajax({
-                        url: '/Customer/Login',
-                        method: 'POST',
-                        data: obj,
-                        success: function (data) {
-                            if (data == "UsernameIsEmpty") {
-                                $('#noti').text(data);
+            var obj = {
+                username: username,
+                password: password
+            };
+
+            $.ajax({
+                url: '/Customer/Login',
+                method: 'POST',
+                data: obj,
+                success: function (data) {
+                    if (data == "UsernameIsEmpty") {
+                        $('#noti').text("Tài khoản không được để trống.");
+                        $('#noti').removeClass('fade');
+                        $('#noti').addClass('show');
+                    }
+                    else {
+                        if (data == "PasswordIsEmpty") {
+                            $('#noti').text("Mật khẩu không được để trống.");
+                            $('#noti').removeClass('fade');
+                            $('#noti').addClass('show');
+                        }
+                        else {
+                            if (data == "IncorrectUser") {
+                                $('#noti').text("Tài khoản hoặc mật khẩu không chính xác.");
                                 $('#noti').removeClass('fade');
                                 $('#noti').addClass('show');
                             }
                             else {
-                                if (data == "PasswordIsEmpty") {
-                                    $('#noti').text(data);
-                                    $('#noti').removeClass('fade');
-                                    $('#noti').addClass('show');
-                                }
-                                else {
-                                    if (data == "IncorrectUser") {
-                                        $('#noti').text(data);
-                                        $('#noti').removeClass('fade');
-                                        $('#noti').addClass('show');
-                                    }
-                                    else {
-                                        $('#modal-login').modal('hide');
-                                        $('#user-login').text('(' + data + ')');
-                                        window.location.reload();
-                                    }
-
-                                }
+                                $('#modal-login').modal('hide');
+                                $('#user-login').text('(' + data + ')');
+                                window.location.reload();
                             }
-                        },
-                        error: function () {
-                            alert('there is some problem.');
+
                         }
-                    });
+                    }
+                },
+                error: function () {
+                    alert('Có lỗi xảy ra.');
                 }
-            }
+            });
         };
 
         function Register() {
@@ -571,7 +562,7 @@
             $('#btn-show-info').click(function (event) {
                 event.preventDefault();
             });
-             $('#btn-save-info').click(function (event) {
+            $('#btn-save-info').click(function (event) {
                 event.preventDefault();
             });
         });

@@ -1,4 +1,6 @@
-﻿@model List<PetShop.Models.Order>
+﻿@using PetShop.Models
+@using PagedList.Mvc;
+@model PagedList.PagedList<Order>
 
 @{
     ViewBag.Title = "ListAllOrders";
@@ -6,7 +8,7 @@
 }
 
 @section masterjs{
-    
+
     <script>
 
         function OrderStatus(item) {
@@ -30,7 +32,7 @@
                 error: function () {
                     alert('Có lỗi xảy ra.');
                 }
-                
+
             });
         }
 
@@ -60,7 +62,7 @@
                 error: function () {
                     alert('Có lỗi xảy ra.');
                 }
-                
+
             });
         }
 
@@ -71,9 +73,9 @@
             });
         });
     </script>
-    
-    
-    }
+
+
+}
 
 
 <br>
@@ -92,10 +94,11 @@
 
     </div>
     <div class="col-sm-6">
-        <form class="form-inline my-2 my-lg-0 float-right">
-            <input class="form-control mr-sm-2 search-input" type="search" placeholder="Tìm kiếm..." aria-label="Search">
+        @using (Html.BeginForm("ListAllOrders", "Order", FormMethod.Get, new { @class = "form-inline my-2 my-lg-0 float-right" }))
+        {
+            <input class="form-control mr-sm-2 search-input" type="search" placeholder="Tìm kiếm..." aria-label="Search" name="searchStr">
             <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>
-        </form>
+        }
     </div>
 </div>
 <table class="table table-striped">
@@ -195,3 +198,9 @@
         }
     </tbody>
 </table>
+
+<div class="row text-center">
+    <div class="col-sm-12">
+        @Html.PagedListPager(Model, page => Url.Action("ListAllOrders", new { page = page }))
+    </div>
+</div>
