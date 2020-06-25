@@ -37,24 +37,31 @@
             var id = $(item).attr('itemid');
             var count = $(item).next().val();
 
-
-            var obj = {
-                id: id,
-                count: count
+            if (count <= 1) {
+                alert('Số lượng phải lớn hơn 0.');
             }
 
-            $.ajax({
-                url: '/Cart/DecreaseCount',
-                method: 'POST',
-                data: obj,
-                success: function (data) {
-                    $(item).next().val(data.Count);
-                    $('#total-money').text(data.TotalMoney);
-                },
-                error: function () {
-                    alert('there is some problem.')
+            else {
+                if (count >= 1) {
+                    var obj = {
+                        id: id,
+                        count: count
+                    }
+
+                    $.ajax({
+                        url: '/Cart/DecreaseCount',
+                        method: 'POST',
+                        data: obj,
+                        success: function (data) {
+                            $(item).next().val(data.Count);
+                            $('#total-money').text(data.TotalMoney);
+                        },
+                        error: function () {
+                            alert('there is some problem.')
+                        }
+                    });
                 }
-            });
+            }
         }
 
         function CheckSession() {
@@ -72,7 +79,7 @@
                             window.location.replace(url);
                         }
                         else {
-                             $('#modal-login').modal('show');
+                            $('#modal-login').modal('show');
                         }
                     }
                 },
@@ -81,6 +88,8 @@
                 }
             });
         }
+
+
     </script>
 
 }
@@ -115,9 +124,9 @@
                             <div class="text-danger col-sm-2 text-center">@String.Format("{0:0,0}", item.Price)₫</div>
                             <div class="col-sm-2">
                                 <div class="btn-group" role="group" aria-label="Basic example ">
-                                    <button class="px-2 btn-qty" itemid="@item.Id" onclick="DecreaseCount(this)">-</button>
-                                    <input type="text" name="count" value="@item.Count" class="w-25 text-center border-0 bg-white" />
-                                    <button class="px-2 btn-qty" itemid="@item.Id" onclick="IncreaseCount(this)">+</button>
+                                    <button class="px-2 decrease-quantity btn-qty" itemid="@item.Id" onclick="DecreaseCount(this)">-</button>
+                                    <input type="text" name="count" value="@item.Count" class="w-25 text-center border-0 bg-white" min="1" />
+                                    <button class="px-2 increase-quantity btn-qty" itemid="@item.Id" onclick="IncreaseCount(this)">+</button>
                                 </div>
                             </div>
 

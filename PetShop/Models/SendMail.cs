@@ -27,6 +27,7 @@ namespace PetShop.Models
             message.Body = body;
 
             var client = new SmtpClient();
+            client.UseDefaultCredentials = false;
             client.Credentials = new NetworkCredential(fromEmailAddress, fromEmailPassword);
             client.Host = smtpHost;
             client.EnableSsl = enabledSsl;

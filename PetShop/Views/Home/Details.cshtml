@@ -46,7 +46,7 @@
         <div class="row mb-3">
             <div class="col-sm-12 p-0">
                 <div class="category-title py-2 ">
-                    <h4 class="text-uppercase pl-3">thông tin chi tiết</h4>
+                    <h4 class="text-uppercase pl-3">chi tiết sản phẩm</h4>
                 </div>
             </div>
 
@@ -90,14 +90,14 @@
                 </div>
 
                 <div class="qtySelector my-3">
-                    <span>Số lượng: </span>
-                    <button class="px-2 decrease-quantity">-</button>
-                    <input type="text" value="1" class="quantity">
-                    <button class="px-2 increase-quantity">+</button>
+                    <span>Số lượng: &nbsp;</span>
+                    <button class="px-2 py-1 decrease-quantity btn btn-light">-</button>
+                    <input type="text" value="1" class="quantity border-0">
+                    <button class="px-2 py-1 increase-quantity btn btn-light">+</button>
                 </div>
 
                 <div>
-                    <button class="btn btn-info mt-3" itemid="@Model.Id" onclick="AddToCartInProductDetails(this)">Thêm vào giỏ<i class="fas fa-cart-plus"></i></button>
+                    <button class="btn btn-info mt-3" itemid="@Model.Id" onclick="AddToCartInProductDetails(this)">Thêm vào giỏ <i class="fas fa-cart-plus"></i></button>
                 </div>
             </div>
         </div>
@@ -107,7 +107,7 @@
                 <div class="row mb-3">
                     <div class="col-sm-12 p-0">
                         <div class="category-title py-2 mt-5">
-                            <h4 class="text-uppercase pl-3">SẢN PHẨM CÙNG LOẠI</h4>
+                            <h4 class="text-uppercase pl-3">SẢN PHẨM LIÊN QUAN</h4>
                         </div>
                     </div>
 

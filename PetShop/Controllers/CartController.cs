@@ -1,6 +1,7 @@
 ﻿using PetShop.Models;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -203,10 +204,23 @@ namespace PetShop.Controllers
                     orderDetail.Count = item.Count;
                     orderDetail.TotalPrice = item.Price * item.Count;
                     db.OrderDetails.InsertOnSubmit(orderDetail);
+                    db.SubmitChanges();
+                    Session["Cart"] = null;
                 }
             }
-            db.SubmitChanges();
-            Session["Cart"] = null;
+
+            string content = System.IO.File.ReadAllText(Server.MapPath("~/Assets/Email/SendMail.html"));
+            content = content.Replace("{{CustomerName}}", user.FullName);
+            content = content.Replace("{{Phone}}", user.Phone);
+            content = content.Replace("{{Email}}", user.Email);
+            content = content.Replace("{{Address}}", user.Address);
+            content = content.Replace("{{Total}}", order.TotalMoney.ToString());
+
+            var toEmail = ConfigurationManager.AppSettings["ToEmailAddress"].ToString();
+            new SendMail().Mail(toEmail, "Đơn hàng mới từ pet shop", content);
+            new SendMail().Mail(user.Email, "Đơn hàng mới từ pet shop", content);
+
+           
             return RedirectToAction("CheckOutConfirm");
         }
 
