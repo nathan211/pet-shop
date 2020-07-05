@@ -1,4 +1,5 @@
-﻿@model List<PetShop.Models.Product>
+﻿@using PetShop.Models
+@model List<Product>
 
 @{
     ViewBag.Title = "ListByMenuSide";
@@ -36,7 +37,7 @@
         }
     </script>
 
-} 
+}
 
 <div class="col-sm-12 products">
     <div class="row category-title py-2">
@@ -65,7 +66,7 @@
     </div>
     <div class="row">
         <div class="col-sm-12 text-center">
-            <a href="#" class="btn btn-outline-info mt-3 px-4">Xem tất cả</a>
+            <a href="#" class="btn btn-outline-info mt-3 px-4">Xem thêm</a>
         </div>
     </div>
 </div>

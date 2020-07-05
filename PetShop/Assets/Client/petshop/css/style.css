@@ -1,4 +1,5 @@
-﻿*{
+﻿
+*{
 	padding: 0;
 	margin: 0;
 }
@@ -160,6 +161,13 @@ background: rgb(243, 102, 100)!important;
 .products .product .card-title{
 	font-size: 13px;
 }
+
+	.products .product .discount-badge {
+		width: 30px;
+		height: 30px;
+		background: #f3c4c4;
+		transform: rotate(-20deg);
+	}
 
 .products .product .cart-plus {
 	position: absolute;

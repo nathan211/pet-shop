@@ -1,5 +1,6 @@
 ﻿@using PetShop.Models
-@model List<Product>
+@using PagedList.Mvc;
+@model PagedList.PagedList<Product>
 
 @{
     ViewBag.Title = "Index";
@@ -78,6 +79,11 @@
                     <a href="@Url.Action("Details", "Home", new { id = item.Id })" class="btn btn-dark btn-more-details">Xem chi tiết <i class="fas fa-info-circle"></i></a>
                 </div>
             }
+        </div>
+        <div class="row text-center">
+            <div class="col-sm-12">
+                @Html.PagedListPager(Model, page => Url.Action("ShoppingForDog", new { page = page }))
+            </div>
         </div>
     </div>
     <!-- end products -->

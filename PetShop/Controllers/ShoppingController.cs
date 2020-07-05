@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using PetShop.Models;
+using PagedList;
+using PagedList.Mvc;
 
 namespace PetShop.Controllers
 {
@@ -19,10 +21,10 @@ namespace PetShop.Controllers
 
         //Shop for dog
 
-        public ActionResult ShopForDog()
+        public ActionResult ShopForDog(int? page)
         {
             var products = db.Products.Where(x => x.PetId == 1).ToList();
-            return View(products);
+            return View(products.ToPagedList(page ?? 1, 12));
         }
 
         public ActionResult MenuFoodForDog(int parentId = 2, int petId = 1)
@@ -45,10 +47,10 @@ namespace PetShop.Controllers
 
         //Shop for cat
 
-         public ActionResult ShopForCat()
+         public ActionResult ShopForCat(int? page)
         {
             var products = db.Products.Where(x => x.PetId == 2).ToList();
-            return View(products);
+            return View(products.ToPagedList(page ?? 1, 12));
         }
 
         public ActionResult MenuFoodForCat(int parentId = 2, int petId = 2)

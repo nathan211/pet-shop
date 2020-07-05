@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using PetShop.Models;
+using PagedList;
+using PagedList.Mvc;
 
 namespace PetShop.Controllers
 {
@@ -13,7 +15,7 @@ namespace PetShop.Controllers
 
         public ActionResult Index()
         {
-            var products = db.Products.Where(x => x.Discount == null).Take(12).ToList();
+            var products = db.Products.Where(x => x.Discount == 0).Take(12).ToList();
             ViewBag.PromotionalProducts = db.Products.Where(x => x.Discount > 0).Take(6).ToList();
             return View(products);
         }
@@ -26,7 +28,7 @@ namespace PetShop.Controllers
 
 
         // product details
-        public ActionResult Details(long id)
+        public ActionResult Details(long id, int? page)
         {
             var product = db.Products.Single(x => x.Id == id);
             ViewBag.ProductsOfTheSameType = ListByCategoryId(product.CategoryId, 12);

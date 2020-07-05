@@ -6,11 +6,12 @@
 @using PetShop.Models
 @model List<Product>
 
-
+@RenderPage("~/Views/Shared/_Banners.cshtml")
+<br />
 @RenderPage("~/Views/Shared/_Navigation.cshtml")
 
 @section masterjs{
-    
+
     <script type="text/javascript">
         function AddToCart(item) {
             var id = $(item).attr('itemid');
@@ -37,10 +38,10 @@
                     alert('There are some problems to add Item.');
                 }
             });
-        }    
+        }
     </script>
-    
-    }
+
+}
 
 <div class="row p-0">
     <div class="col-sm-12 p-0">
@@ -58,6 +59,7 @@
                     @foreach (var item in promotionalProducts)
                     {
                         <div href="#" class="card col-sm-2 p-0 product border rounded-0">
+                            <div class="text-danger font-weight-bold discount-badge">@item.Discount%</div>
                             <a href="@Url.Action("Details", "Home", new { id = item.Id })" class="text-decoration-none">
                                 <img class="card-img-top" src="@Url.Content(@item.Image)" alt="Card image cap">
                                 <div class="card-body">
@@ -69,7 +71,7 @@
 
                                 <div class="ml-3 mb-3 text-dark font-weight-bold price">@String.Format("{0:0,0}", item.Price) ₫</div>
                                 <div class="ml-3 text-danger font-weight-bold price">@String.Format("{0:0,0}", item.PromotePrice) ₫ <div class="line"></div></div>
-                                
+
                                 <button class="cart-plus text-warning bg-white border-0" itemid="@item.Id" onclick="AddToCart(this)"><i class="fas fa-cart-plus"></i></button>
                             </div>
 
@@ -99,7 +101,7 @@
 
         <div class="row">
             <div class="col-sm-12 products">
-                <div class="row flex-wrap">   
+                <div class="row flex-wrap">
                     @foreach (var item in Model)
                     {
                         <div href="#" class="card col-sm-2 p-0 product border rounded-0">

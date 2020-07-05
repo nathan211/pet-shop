@@ -205,9 +205,10 @@ namespace PetShop.Controllers
                     orderDetail.TotalPrice = item.Price * item.Count;
                     db.OrderDetails.InsertOnSubmit(orderDetail);
                     db.SubmitChanges();
-                    Session["Cart"] = null;
                 }
             }
+
+            listCartItem.Clear();
 
             string content = System.IO.File.ReadAllText(Server.MapPath("~/Assets/Email/SendMail.html"));
             content = content.Replace("{{CustomerName}}", user.FullName);

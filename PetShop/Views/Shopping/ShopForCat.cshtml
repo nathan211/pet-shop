@@ -1,5 +1,6 @@
 ﻿@using PetShop.Models
-@model List<Product>
+@using PagedList.Mvc;
+@model PagedList.PagedList<Product>
 
 @{
     ViewBag.Title = "Index";
@@ -81,8 +82,14 @@
                 </div>
             }
         </div>
+        <div class="row text-center">
+            <div class="col-sm-12">
+                @Html.PagedListPager(Model, page => Url.Action("ShoppingForCat", new { page = page }))
+            </div>
+        </div>
     </div>
     <!-- end products -->
+
 </div>
 
 

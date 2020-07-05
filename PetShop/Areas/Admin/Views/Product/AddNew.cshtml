@@ -68,6 +68,14 @@
                         </div>
 
                         <div class="form-group">
+                            @Html.Label("Pet")
+                            <div class="col-md-12 p-0">
+                                @Html.DropDownList("PetId", null, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "text-danger font-weight-bold" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
                             @Html.Label("Nhà cung cấp")
                             <div class="col-md-12 p-0">
                                 @Html.DropDownList("SupplierId", null, new { @class = "form-control" })

@@ -49,6 +49,7 @@ namespace PetShop.Areas.Admin.Controllers
                 return RedirectToAction("Index", "Login");
             }
             ViewBag.CategoryId = new SelectList(db.Categories.ToList(), "Id", "Name");
+            ViewBag.PetId = new SelectList(db.Pets.ToList(), "Id", "Name");
             ViewBag.SupplierId = new SelectList(db.Suppliers.ToList(), "Id", "Name");
             return PartialView();
         }
